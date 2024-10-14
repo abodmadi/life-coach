@@ -4,9 +4,9 @@ import Button from "./Button";
 export default function CardCourse({ item }) {
   return (
     <>
-      <div className="min-h-screen font-elMessiri flex justify-center items-center">
+      <div className="font-elMessiri flex justify-center items-center ">
         <div className="container flex justify-center">
-          <div className="max-w-sm py-10">
+          <div className="max-w-sm  py-5">
             <div className="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
               <img className="rounded-t-lg" src={item.imageUrl} alt="" />
               <div className="py-6 px-8 rounded-lg bg-white">
