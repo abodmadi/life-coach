@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 export default function Advertisement() {
   return (
     <div className="bg-blueLightGrayish-950 min-h-screen w-screen">
-      <div className="h-full container mx-auto flex flex-col md:flex-row justify-center items-center gap-4">
+      <div className="h-full container w-10/12 mx-auto flex flex-col md:flex-row justify-center items-center gap-4">
         <div className="w-full md:w-1/2 h-full  flex flex-col  justify-center items-center">
           <div>
             <h1 className="p-8  text-4xl text-blueVeryDark-950 font-elMessiri font-extrabold">

@@ -25,10 +25,10 @@ function App() {
     </div> */}
       <Routes>
         <Route path="/" element={<Home />} />
-
+        <Route path="/blogs" element={<Blogs />} />
         <Route element={<PrivateRoute isProtectedRoute={false} />}>
           <Route path="/about" element={<About />} />
-          <Route path="/blogs" element={<Blogs />} />
+          
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />

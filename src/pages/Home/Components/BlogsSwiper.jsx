@@ -40,7 +40,7 @@ export default function BlogsSwiper() {
 
   return (
     <section className="bg-violetLightGrayish-400 py-24 font-elMessiri">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container w-10/12 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between gap-8">
           {/* Right Side */}
           <div className="w-full flex justify-between flex-col lg:w-2/5">

@@ -18,7 +18,7 @@ export default function CardCourse({ item }) {
                 </p>
                 <div className="mt-6 ">
                   {" "}
-                  <Button toPage={"/"} text={"اطلع الان"} />
+                  <Button toPage={"/"} text={"أحجز الان"} />
                 </div>
               </div>
               <div className="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">

@@ -3,7 +3,7 @@ import { FeaturesList } from "../../../constants";
 export default function Features() {
   return (
     <section className="bg-violetLightGrayish-400 text-blueVeryDark-700 font-elMessiri">
-      <div className="container px-5 py-24 mx-auto">
+      <div className="container w-10/12 px-5 py-24">
         {/* Features Title */}
         <div className="text-center mb-20">
           <h1 className="sm:text-3xl text-2xl font-bold title-font text-blueVeryDark-700 mb-4">

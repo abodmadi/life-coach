@@ -5,7 +5,7 @@ export default function CoursesSection() {
   return (
     <>
       <div className="bg-blueLightGrayish-200 px-4 font-elMessiri">
-        <div className="container pt-20   mx-auto">
+        <div className="container w-10/12 pt-20">
           <div className="text-center ">
             <h1 className="sm:text-3xl text-2xl font-bold title-font text-blueVeryDark-700 mb-4">
               الدورات{" "}

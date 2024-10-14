@@ -9,7 +9,7 @@ function Hero() {
   return (
     <div className="bg-blueLightGrayish-950 min-h-screen flex items-center">
       
-      <div className="p-4 container max-h-full w-4/5 mx-auto flex flex-col lg:flex-row  items-center justify-center gap-8">
+      <div className="p-4 container w-10/12 max-h-full flex flex-col lg:flex-row  items-center justify-center gap-8">
         {/* Text */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-center space-y-7">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-blueVeryDark-950 font-elMessiri font-extrabold text-center lg:text-right">
