@@ -155,7 +155,7 @@ export default function Header() {
                             التقييمات و التحديات
                           </Link>
                           <Link
-                            to={"/dashboard"}
+                            to={"/faqs"}
                             className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
                             role="menuitem"
                           >
