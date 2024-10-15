@@ -14,6 +14,8 @@ import Sessions from "./pages/Sessions";
 import CourseDetails from "./pages/CourseDetails";
 import NotFound from "./pages/NotFound";
 //import Advertisement from "./pages/Advertisement/Advertisement";
+import Contact from "./pages/Contact/Contact";
+import FAQs from "./pages/FAQs/FAQs";
 //import Breadcrumb from './components/Breadcrumb'
 
 function App() {
@@ -25,7 +27,8 @@ function App() {
     </div> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/contact-us" element={<Contact />} />
+      <Route path="/faqs" element={<FAQs />} />
         <Route path="/courses" element={<Courses />} />
         <Route element={<PrivateRoute isProtectedRoute={false} />}>
           <Route path="/about" element={<About />} />
