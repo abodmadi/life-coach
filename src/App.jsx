@@ -9,11 +9,11 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./components/Profile";
 import PrivateRoute from "./components/PrivateRoute";
-import Courses from "./pages/Courses";
+import Courses from "./pages/Courses/Courses";
 import Sessions from "./pages/Sessions";
 import CourseDetails from "./pages/CourseDetails";
 import NotFound from "./pages/NotFound";
-import Advertisement from "./pages/Advertisement/Advertisement";
+//import Advertisement from "./pages/Advertisement/Advertisement";
 //import Breadcrumb from './components/Breadcrumb'
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/courses" element={<Courses />} />
         <Route element={<PrivateRoute isProtectedRoute={false} />}>
           <Route path="/about" element={<About />} />
           
@@ -33,7 +34,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/services" element={<Services />}>
-            <Route path="courses" element={<Courses />} />
+            
             <Route path="sessions" element={<Sessions />} />
             <Route path="course-details/:id" element={<CourseDetails />} />
           </Route>
