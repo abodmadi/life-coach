@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import Icons from "../../../components/Icons";
 
 export default function CourseCard({ course }) {
   return (
@@ -11,23 +13,33 @@ export default function CourseCard({ course }) {
           alt="serum bottle image"
           className="w-full h-full rounded-xl object-cover"
         />
-        <span className="py-1 min-[400px]:py-2 px-2 min-[400px]:px-4 cursor-pointer rounded-lg bg-gradient-to-tr from-blue-400 to-violet-400 font-medium text-base leading-7 text-white absolute top-3 right-3 z-10">
-          20% Off
+        <span className="py-1 min-[400px]:py-2 px-2 min-[400px]:px-4 cursor-pointer rounded-lg bg-gradient-to-tr from-blueVeryDark-500 to-teal-300 font-medium text-sm leading-7 text-white absolute top-1.5 right-1.5 z-10">
+          20% تخفيض
         </span>
       </div>
 
       <div className="mt-5 flex items-center justify-between">
         <div className="">
-          <h6 className="font-medium text-xl leading-8 text-black mb-2">
-            Dark circles serum
+          <h6 className="font-medium text-xl leading-8 text-blueVeryDark-900 mb-1">
+            دورة حياة الكنز
           </h6>
-          <h6 className="font-semibold text-xl leading-8 text-indigo-600">
+          <div className="flex items-center gap-x-2 text-sm mb-1">
+            <div className="flex items-center gap-x-1 text-blueVeryDark-600 ">
+              <Icons icon={faBookOpen} />
+            </div>
+            <span className="text-blueVeryDark-500">
+              {"4"}
+              {" فصول"}
+              {/* {course.chapters.length !== 1 ? "Chapters" : "Chapter"} */}
+            </span>
+          </div>
+          <h6 className="font-semibold text-xl leading-8 text-teal-600">
             $199.99
           </h6>
         </div>
-        <button className="p-2 min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-400 hover:bg-gray-50">
+        <button className="p-2 min-[400px]:p-4 rounded-full bg-white border border-blueVeryDark-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-blueVeryDark-200 hover:border-blueVeryDark-700 hover:bg-blueVeryDark-50">
           <svg
-            className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+            className="stroke-blueVeryDark-700 transition-all duration-500 group-hover:stroke-blueVeryDark-950"
             xmlns="http://www.w3.org/2000/svg"
             width={26}
             height={26}

@@ -87,7 +87,7 @@ export default function Footer() {
   const ourServicesList = [
     {
       title: "دورات و ورش تعليمية",
-      url: "/",
+      url: "/courses",
     },
     {
       title: "جلسات إرشادية",
@@ -142,7 +142,6 @@ export default function Footer() {
 
           {/* about link contact services */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
-            
             <div className="text-center sm:text-right">
               <p className="text-lg font-medium text-blueVeryDark-900">
                 عن رحلتي
@@ -198,7 +197,7 @@ export default function Footer() {
                 <li>
                   <Link
                     className="text-blueVeryDark-700 transition hover:text-blueVeryDark-950"
-                    to={"/"}
+                    to={"/faqs"}
                   >
                     الأسئلة الشائعة
                   </Link>
@@ -273,10 +272,8 @@ export default function Footer() {
                     <span>20123456789+</span>
                   </Link>
                 </li>
-
               </ul>
             </div>
-
           </div>
         </div>
         {/* Copy write */}

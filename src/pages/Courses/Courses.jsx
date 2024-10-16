@@ -1,14 +1,15 @@
 import { FilterProvider } from "../../contexts/FilterContext";
 import Filters from "./Components/Filters";
 
-
 export default function Courses() {
   return (
-    <div className="font-elMessiri container mx-auto w-11/12">
-      <FilterProvider>
-        <Filters />
-      </FilterProvider>
-    </div>
+    <section className="bg-blueLightGrayish-200">
+      <div className="font-elMessiri container mx-auto w-11/12">
+        <FilterProvider>
+          <Filters />
+        </FilterProvider>
+      </div>
+    </section>
   );
 }
 
