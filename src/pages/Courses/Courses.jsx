@@ -1,6 +1,6 @@
 import { FilterProvider } from "../../contexts/FilterContext";
 import Filters from "./Components/Filters";
-
+//comment
 export default function Courses() {
   return (
     <section className="bg-blueLightGrayish-200">
