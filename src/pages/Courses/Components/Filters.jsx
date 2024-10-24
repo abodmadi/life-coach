@@ -1,18 +1,13 @@
 import { useContext } from "react";
 import { FilterContext } from "../../../contexts/FilterContext";
 import CoursesGrid from "./CoursesGrid";
-import { subCategories, filters, sortOptions } from "../../../constants";
+import { subCategories, filters } from "../../../constants";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
 } from "@headlessui/react";
 import {
-  ChevronDownIcon,
   FunnelIcon,
   MinusIcon,
   PlusIcon,
@@ -22,11 +17,6 @@ import MobileDialog from "./MobileDialog";
 import { Link } from "react-router-dom";
 export default function Filters() {
   const { setIsMobileFilterBtnClicked } = useContext(FilterContext);
-  //const [isSortOptionClicked, setIsSortOptionClicked] = useState()
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
-
   return (
     <div className="bg-white-200">
       <div>
@@ -77,7 +67,7 @@ export default function Filters() {
                 >
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
+                      <Link href={category.href}>{category.name}</Link>
                     </li>
                   ))}
                 </ul>

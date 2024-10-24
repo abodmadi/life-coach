@@ -4,3 +4,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.swiper-slide-thumb-active img {
+    border-color: #1f4b72; /* Change this to your desired border color */
+    transform: scale(1); /* Optional: to apply a zoom effect on the active thumbnail */
+}

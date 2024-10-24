@@ -91,7 +91,7 @@ export default function Header() {
                 <li>
                   <Link
                     className="hidden md:inline text-blueVeryDark-700 transition hover:text-blueVeryDark-950"
-                    to={"/"}
+                    to={"/about-us"}
                   >
                     عن رحلتي
                   </Link>
@@ -349,7 +349,7 @@ export default function Header() {
               <li className="pt-2">
                 <Link
                   className="text-blueVeryDark-700 transition hover:text-blueVeryDark-950"
-                  to={"/"}
+                  to={"/about-us"}
                 >
                   عن رحلتي
                 </Link>
