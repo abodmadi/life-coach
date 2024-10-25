@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-
+import * as yup from "yup";
 export default function CompaniesForm() {
   const companiesList = [
     {
@@ -166,20 +166,20 @@ export default function CompaniesForm() {
     },
   ];
 
-  const typesMap = new Map(types.map((item) => [item.name, item.id]));
+  /* const typesMap = new Map(types.map((item) => [item.name, item.id]));
   const suTypesMap = new Map(subTypes.map((item) => [item.name, item.id]));
   const compMap = new Map(companiesList.map((item) => [item.name, item.id]));
   const somAppMap = new Map(somApps.map((item) => [item.name, item.id]));
   const somAccountsMap = new Map(
     scoialMediaAccounts.map((item) => [item.profileUrl, item.id])
-  );
+  ); */
 
   function handelNewPost(data) {
-    data.publisherId = compMap.get(data.publisherId);
+    /* data.publisherId = compMap.get(data.publisherId);
     data.scoialMediaAccountId = somAccountsMap.get(data.scoialMediaAccountId);
     data.socialMediaAppId = somAppMap.get(data.socialMediaAppId);
     data.typeId = typesMap.get(data.typeId);
-    data.subTypeId = suTypesMap.get(data.subTypeId);
+    data.subTypeId = suTypesMap.get(data.subTypeId); */
 
     const dataMap = new Map(Object.entries(data));
     if (dataMap.get("coverImage") === "") {
@@ -188,7 +188,32 @@ export default function CompaniesForm() {
     const finalData = Object.fromEntries(dataMap);
 
     console.log(finalData);
+    formik.resetForm();
   }
+
+  const newPostSchema = yup.object().shape({
+    title: yup.string().min(5, "يجب ان لا يقل عن 5 حروف").required("مطلوب"),
+    description: yup
+      .string()
+      .min(10, "يجب ان لا يقل عن 10 حروف")
+      .max(1000, "يجب ان لا يزيد عن ألف حرف")
+      .required("مطلوب"),
+    coverImage: yup.string().url("يجب ان يحتوي على رابط").nullable(),
+    postUrl: yup.string().url("يجب ان يحتوي على رابط").required("مطلوب"),
+    publishDate: yup
+      .date()
+      .min(new Date(2000, 0, 1), "يجب ان لا يقل عن عام 2000")
+      .max(new Date(), "يجب ان يسبق تاريخ اليوم")
+      .required("مطلوب"),
+    publisherId: yup.string().notOneOf([""]).required("مطلوب"),
+    scoialMediaAccountId: yup.string().notOneOf([""]).required("مطلوب"),
+    socialMediaAppId: yup.string().notOneOf([""]).required("مطلوب"),
+    typeId: yup.string().notOneOf([""]).required("مطلوب"),
+    subTypeId: yup.string().notOneOf([""]).required("مطلوب"),
+  });
+
+  //console.log("ff",[...companiesList.map((item)=>item.id)])
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -205,7 +230,9 @@ export default function CompaniesForm() {
       updatedAt: new Date(),
     },
     onSubmit: handelNewPost,
+    validationSchema: newPostSchema,
   });
+
   return (
     <div className="container w-5/6 mx-auto flex justify-center p-8">
       <div className="w-full max-w-md">
@@ -225,7 +252,9 @@ export default function CompaniesForm() {
               العنوان
             </label>
             <input
-              className="shadow border rounded w-full py-2 px-3 text-gray-700"
+              className={`shadow border ${
+                formik.errors.title && formik.touched.title && "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
               id="title"
               name="title"
               type="text"
@@ -234,6 +263,11 @@ export default function CompaniesForm() {
               onBlur={formik.handleBlur}
               value={formik.values.title}
             />
+            {formik.errors.title && formik.touched.title && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.title}
+              </p>
+            )}
           </div>
           {/* Description */}
           <div className="mb-4">
@@ -244,7 +278,12 @@ export default function CompaniesForm() {
               الوصف
             </label>
             <textarea
-              className="w-full shadow text-gray-700 rounded border px-3 py-2 text-sm"
+              className={`shadow border ${
+                formik.errors.description &&
+                formik.touched.description &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
+              //className="w-full shadow text-gray-700 rounded border px-3 py-2 text-sm"
               placeholder="الوصف"
               rows="8"
               id="description"
@@ -253,6 +292,11 @@ export default function CompaniesForm() {
               onBlur={formik.handleBlur}
               value={formik.values.description}
             ></textarea>
+            {formik.errors.description && formik.touched.description && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.description}
+              </p>
+            )}
           </div>
           {/* Cover Image */}
           <div className="mb-4">
@@ -263,7 +307,11 @@ export default function CompaniesForm() {
               رابط الغلاف
             </label>
             <input
-              className="shadow border rounded w-full py-2 px-3 text-gray-700"
+              className={`shadow border ${
+                formik.errors.coverImage &&
+                formik.touched.coverImage &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
               id="coverImage"
               type="url"
               placeholder="رابط الغلاف"
@@ -272,6 +320,11 @@ export default function CompaniesForm() {
               onBlur={formik.handleBlur}
               value={formik.values.coverImage}
             />
+            {formik.errors.coverImage && formik.touched.coverImage && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.coverImage}
+              </p>
+            )}
           </div>
           {/* Post Url */}
           <div className="mb-4">
@@ -282,7 +335,11 @@ export default function CompaniesForm() {
               رابط المنشور
             </label>
             <input
-              className="shadow border rounded w-full py-2 px-3 text-gray-700"
+              className={`shadow border ${
+                formik.errors.postUrl &&
+                formik.touched.postUrl &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
               id="postUrl"
               type="url"
               placeholder="رابط المنشور"
@@ -291,6 +348,11 @@ export default function CompaniesForm() {
               onBlur={formik.handleBlur}
               value={formik.values.postUrl}
             />
+            {formik.errors.postUrl && formik.touched.postUrl && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.postUrl}
+              </p>
+            )}
           </div>
           {/* publish date */}
           <div className="mb-4">
@@ -301,7 +363,11 @@ export default function CompaniesForm() {
               تاريخ النشر
             </label>
             <input
-              className="shadow border rounded w-full py-2 px-3 text-gray-700"
+              className={`shadow border ${
+                formik.errors.publishDate &&
+                formik.touched.publishDate &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
               id="publishDate"
               type="date"
               placeholder="تاريخ النشر"
@@ -310,6 +376,11 @@ export default function CompaniesForm() {
               onBlur={formik.handleBlur}
               value={formik.values.publishDate}
             />
+            {formik.errors.publishDate && formik.touched.publishDate && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.publishDate}
+              </p>
+            )}
           </div>
           {/* Company id */}
           <div className="mb-4">
@@ -324,13 +395,24 @@ export default function CompaniesForm() {
               name="publisherId"
               onChange={formik.handleChange}
               value={formik.values.publisherId}
-              className="shadow border rounded w-full py-2 px-px text-gray-700 "
+              className={`shadow border ${
+                formik.errors.publisherId &&
+                formik.touched.publisherId &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
             >
-              <option>أختر شركة</option>
+              <option value={""} disabled >أختر شركة</option>
               {companiesList.map((item, index) => (
-                <option key={index}>{item.name}</option>
+                <option value={item.id} key={index}>
+                  {item.name}
+                </option>
               ))}
             </select>
+            {formik.errors.publisherId && formik.touched.publisherId && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.publisherId}
+              </p>
+            )}
           </div>
           {/* Company Account Id */}
           <div className="mb-4">
@@ -346,13 +428,26 @@ export default function CompaniesForm() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.scoialMediaAccountId}
-              className="shadow border rounded w-full py-2 px-px text-gray-700 "
+              className={`shadow border ${
+                formik.errors.scoialMediaAccountId &&
+                formik.touched.scoialMediaAccountId &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
             >
-              <option>أختر حساب تواصل للشركة</option>
+              <option disabled value={""}>
+                أختر حساب تواصل للشركة
+              </option>
               {scoialMediaAccounts.map((item, index) => (
-                <option key={index}>{item.profileUrl}</option>
+                <option value={item.id} key={index}>
+                  {item.profileUrl}
+                </option>
               ))}
             </select>
+            {formik.errors.scoialMediaAccountId && formik.touched.scoialMediaAccountId && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.scoialMediaAccountId}
+              </p>
+            )}
           </div>
           {/* Social Media app Id */}
           <div className="mb-4">
@@ -368,13 +463,26 @@ export default function CompaniesForm() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.socialMediaAppId}
-              className="shadow border rounded w-full py-2 px-px text-gray-700 "
+              className={`shadow border ${
+                formik.errors.socialMediaAppId &&
+                formik.touched.socialMediaAppId &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
             >
-                <option >أختر منصة تواصل اجتماعي</option>
+              <option disabled value={""}>
+                أختر منصة تواصل اجتماعي
+              </option>
               {somApps.map((item, index) => (
-                <option key={index}>{item.name}</option>
+                <option value={item.id} key={index}>
+                  {item.name}
+                </option>
               ))}
             </select>
+            {formik.errors.socialMediaAppId && formik.touched.socialMediaAppId && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.socialMediaAppId}
+              </p>
+            )}
           </div>
           {/* Type Id */}
           <div className="mb-4">
@@ -390,12 +498,26 @@ export default function CompaniesForm() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.typeId}
-              className="shadow border rounded w-full py-2 px-px text-gray-700 "
+              className={`shadow border ${
+                formik.errors.typeId &&
+                formik.touched.typeId &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
             >
+              <option disabled value={""}>
+                أختر فئة المنشور
+              </option>
               {types.map((item, index) => (
-                <option key={index}>{item.name}</option>
+                <option value={item.id} key={index}>
+                  {item.name}
+                </option>
               ))}
             </select>
+            {formik.errors.typeId && formik.touched.typeId && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.typeId}
+              </p>
+            )}
           </div>
           {/* Sub Type Id */}
           <div className="mb-6">
@@ -411,12 +533,26 @@ export default function CompaniesForm() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.subTypeId}
-              className="shadow border rounded w-full py-2 px-px text-gray-700 "
+              className={`shadow border ${
+                formik.errors.subTypeId &&
+                formik.touched.subTypeId &&
+                "border-red-400"
+              }  rounded w-full py-2 px-3 text-gray-700`}
             >
+              <option disabled value={""}>
+                أختر نوع المنشور
+              </option>
               {subTypes.map((item, index) => (
-                <option key={index}>{item.name}</option>
+                <option value={item.id} key={index}>
+                  {item.name}
+                </option>
               ))}
             </select>
+            {formik.errors.subTypeId && formik.touched.subTypeId && (
+              <p className="text-red-500 text-xs italic">
+                {formik.errors.subTypeId}
+              </p>
+            )}
           </div>
 
           {/* <div className="mb-6">
@@ -432,14 +568,12 @@ export default function CompaniesForm() {
               type="password"
               placeholder="******************"
             />
-            <p className="text-red-500 text-xs italic">
-              Please choose a password.
-            </p>
+            
           </div> */}
 
           <button
             className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            //type="button"
+            type="submit"
           >
             حفظ
           </button>
