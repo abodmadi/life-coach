@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Services from "./pages/Services";
-import Blogs from "./pages/Blogs";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SignIn from "./pages/SignIn";
@@ -9,15 +7,14 @@ import SignUp from "./pages/SignUp";
 import Profile from "./components/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Courses from "./pages/Courses/Courses";
-import Sessions from "./pages/Sessions";
 import CourseDetails from "./pages/CourseDetails/CourseDetails";
 import NotFound from "./pages/NotFound";
-//import Advertisement from "./pages/Advertisement/Advertisement";
 import Contact from "./pages/Contact/Contact";
 import FAQs from "./pages/FAQs/FAQs";
 import AboutUs from "./pages/AboutUs/AboutUs";
-import CompaniesForm from "./components/CompaniesForm";
-//import Breadcrumb from './components/Breadcrumb'
+import PaymentWaysRequestForm from "./pages/RequestForms/Components/PaymentWaysRequestForm";
+import RequestForms from "./pages/RequestForms/RequestForms";
+import WhatsAppRequestForm from "./pages/RequestForms/Components/WhatsAppRequestForm";
 
 function App() {
   return (
@@ -30,19 +27,19 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/faqs" element={<FAQs />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/form-data" element={<CompaniesForm />} />
-        <Route path="course-details/:id" element={<CourseDetails />} />
-        <Route element={<PrivateRoute isProtectedRoute={false} />}>
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/services" element={<Services />}>
-            <Route path="sessions" element={<Sessions />} />
-          </Route>
+        <Route path="/courses" element={<Courses />}>
+          <Route path="course-details/:id" element={<CourseDetails />} />
         </Route>
-        {/* <Route index element={<Advertisement/>} /> */}
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/request-form" element={<RequestForms />} >
+          <Route path="payment-way" element={<PaymentWaysRequestForm/>}/>
+          <Route path="whats-app" element={<WhatsAppRequestForm/>}/>
+        </Route>
+        <Route element={<PrivateRoute isProtectedRoute={false} />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

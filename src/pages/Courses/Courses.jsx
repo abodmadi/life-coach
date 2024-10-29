@@ -1,8 +1,12 @@
 import { FilterProvider } from "../../contexts/FilterContext";
 import Filters from "./Components/Filters";
+import { Outlet, useOutlet } from "react-router-dom";
 //comment
 export default function Courses() {
-  return (
+  const isOutlet = useOutlet();
+  return isOutlet ? (
+    <Outlet />
+  ) : (
     <section className="bg-blueLightGrayish-200">
       <div className="font-elMessiri container mx-auto w-11/12">
         <FilterProvider>

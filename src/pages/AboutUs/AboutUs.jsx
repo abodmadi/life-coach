@@ -6,7 +6,7 @@ import Skills from "./Components/Skills";
 
 export default function AboutUs() {
   return (
-    <div className="bg-redLightGrayish-400 font-elMessiri">
+    <div className="bg-violetLightGrayish-400 font-elMessiri">
       <div className="container w-10/12">
         <SectionHeader text1={"عن"} text2={"محمد رفعت"} />
       </div>

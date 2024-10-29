@@ -5,7 +5,7 @@ import Icons from "../../../components/Icons";
 
 export default function CourseCard({ course }) {
   return (
-    <Link to={"/course-details"} className="max-w-[384px] mx-auto">
+    <Link to={`course-details/${course.id}`} className="max-w-[384px] mx-auto">
       {/* Image */}
       <div className="w-full max-w-sm aspect-square relative">
         <img
