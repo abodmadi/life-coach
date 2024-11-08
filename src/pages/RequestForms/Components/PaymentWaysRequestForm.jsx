@@ -26,7 +26,7 @@ export default function PaymentWaysRequestForm() {
     onSubmit: handelRequest,
     validationSchema: requestSchema,
   });
-  console.log(formik.values.paymentReceipt.split('\\')[2])
+  console.log(formik.values.paymentReceipt.split("\\")[2]);
   return (
     <div className="container w-5/6 mx-auto flex justify-center p-8 bg-red-100">
       <div className="w-full max-w-lg">
@@ -34,6 +34,7 @@ export default function PaymentWaysRequestForm() {
           الدفع الإلكتروني
         </h1>
         <form
+        
           onSubmit={formik.handleSubmit}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
@@ -109,7 +110,10 @@ export default function PaymentWaysRequestForm() {
             >
               {formik.values.paymentReceipt ? (
                 <img
-                  src={"C://Users//abdullah//Pictures//Screenshots//"+formik.values.paymentReceipt.split('\\')[2]}
+                  src={
+                    "C://Users//abdullah//Pictures//Screenshots//" +
+                    formik.values.paymentReceipt.split("\\")[2]
+                  }
                   alt="payment receipt image"
                 />
               ) : (
@@ -152,14 +156,16 @@ export default function PaymentWaysRequestForm() {
               />
             </label>
           </div>
-
-          <button
-            className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            حفظ
-          </button>
         </form>
+        <button
+          onClick={()=>{
+            submitForm();
+          }}
+          className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          حفظ
+        </button>
       </div>
     </div>
   );
