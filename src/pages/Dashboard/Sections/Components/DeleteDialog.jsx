@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
+import ButtonLoader from "@/components/ButtonLoader";
 export default function DeleteDialog({
   message,
   endPoint,
@@ -17,10 +18,14 @@ export default function DeleteDialog({
     setDeletedItemId,
   } = useContext(AdminDashboardContext);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { mutate } = useMutation({
     mutationKey: ["delete", endPoint + deletedItemId],
     mutationFn: async () => await deleteData(endPoint + deletedItemId),
-    onMutate: () => {},
+    onMutate: () => {
+      setIsLoading(true);
+    },
     onError: (error) => {
       //toast.error(error?.response?.data?.errors[0]?.msg);
       toast.error(error?.message);
@@ -30,6 +35,7 @@ export default function DeleteDialog({
     onSuccess: () => {
       toast.success(successMessage);
       queryClient.invalidateQueries("courses");
+      setIsLoading(false);
       setDeletedItemId(null);
       setIsDeleteDialogClicked(false);
     },
@@ -87,12 +93,13 @@ export default function DeleteDialog({
               {message}
             </h3>
             <div className="flex justify-center items-center gap-x-4">
-              <button
+            <button
                 onClick={() => {
                   mutate();
                 }}
-                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
+                className="gap-x-2 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
               >
+                {isLoading && <ButtonLoader />}
                 نعم ,انا متأكد
               </button>
               <button

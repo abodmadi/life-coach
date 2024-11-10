@@ -9,6 +9,7 @@ import DeleteDialog from "../Components/DeleteDialog";
 import EditDialog from "../Components/EditDialog";
 import NewItemDialog from "../Components/NewItemDialog";
 import toast from "react-hot-toast";
+import EditCourseForm from "@/forms/EditCourseForm";
 export default function Courses() {
   const {
     data: courses,
@@ -42,7 +43,12 @@ export default function Courses() {
         endPoint={coursesUrl + "/delete/"}
         successMessage={"تم حذف الدورة بنجاح"}
       />
-      <EditDialog header={"Edit product"} endPoint={""} successMessage={"تم تعديل الدورة بنجاح"} />
+      <EditDialog
+        form={<EditCourseForm />}
+        header={"Edit product"}
+        endPoint={""}
+        successMessage={"تم تعديل الدورة بنجاح"}
+      />
       <NewItemDialog header={"Add product"} />
     </>
   );
