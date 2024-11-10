@@ -288,3 +288,30 @@ export const tableColumnsNames = [
   "عدد الفصول",
   "المحرر",
 ];
+export const editCourseFields = [
+  {
+    name: "name",
+    label: "Name",
+    type: "text",
+    placeholder: "Your Name",
+  },
+  {
+    name: "email",
+    label: "Email",
+    type: "email",
+    placeholder: "you@example.com",
+  },
+  {
+    name: "phone",
+    label: "Phone Number",
+    type: "tel",
+    placeholder: "123-456-7890",
+  },
+  {
+    name: "message",
+    label: "Message",
+    type: "text",
+    component: "textarea",
+    placeholder: "Your Message",
+  },
+];

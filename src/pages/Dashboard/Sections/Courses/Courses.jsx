@@ -1,4 +1,3 @@
-import React from "react";
 import Table from "../Components/Table";
 import { tableColumnsNames } from "@/constants";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +9,7 @@ import EditDialog from "../Components/EditDialog";
 import NewItemDialog from "../Components/NewItemDialog";
 import toast from "react-hot-toast";
 import EditCourseForm from "@/forms/EditCourseForm";
+
 export default function Courses() {
   const {
     data: courses,
@@ -44,11 +44,12 @@ export default function Courses() {
         successMessage={"تم حذف الدورة بنجاح"}
       />
       <EditDialog
-        form={<EditCourseForm />}
         header={"Edit product"}
         endPoint={""}
         successMessage={"تم تعديل الدورة بنجاح"}
-      />
+      >
+        <EditCourseForm />
+      </EditDialog>
       <NewItemDialog header={"Add product"} />
     </>
   );

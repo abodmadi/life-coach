@@ -4,7 +4,12 @@ import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { updateData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import FormContainer from "@/components/FormContainer";
-export default function EditDialog({ form, header, endPoint, successMessage }) {
+export default function EditDialog({
+  children,
+  header,
+  endPoint,
+  successMessage,
+}) {
   const queryClient = useQueryClient();
 
   const {
@@ -67,7 +72,7 @@ export default function EditDialog({ form, header, endPoint, successMessage }) {
           {/* // Modal body // */}
           <div className="p-6 space-y-6">
             {/* Form */}
-            {form}
+            {children}
           </div>
           {/* // Modal footer // */}
           <div className="p-6 border-t border-gray-200 rounded-b">
