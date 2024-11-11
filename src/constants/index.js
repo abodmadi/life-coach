@@ -291,27 +291,28 @@ export const tableColumnsNames = [
 export const editCourseFields = [
   {
     name: "name",
-    label: "Name",
+    label: "اسم الدورة",
     type: "text",
-    placeholder: "Your Name",
+    placeholder: " ",
+  },
+
+  {
+    name: "price",
+    label: "السعر",
+    type: "number",
+    placeholder: "",
   },
   {
-    name: "email",
-    label: "Email",
-    type: "email",
-    placeholder: "you@example.com",
+    name: "coverImage",
+    label: "صورة الغلاف",
+    type: "url",
+    placeholder: "",
   },
   {
-    name: "phone",
-    label: "Phone Number",
-    type: "tel",
-    placeholder: "123-456-7890",
-  },
-  {
-    name: "message",
-    label: "Message",
+    name: "description",
+    label: "الوصف",
     type: "text",
     component: "textarea",
-    placeholder: "Your Message",
+    placeholder: "",
   },
 ];

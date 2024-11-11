@@ -1,11 +1,9 @@
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-
 function FormContainer({
   fields,
   initialValues,
   validationSchema,
   onSubmit,
-  formRef,
 }) {
   return (
     <Formik
@@ -31,6 +29,7 @@ function FormContainer({
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder={field.placeholder}
               />
+
               <ErrorMessage
                 name={field.name}
                 component="div"
@@ -38,6 +37,12 @@ function FormContainer({
               />
             </div>
           ))}
+          <button
+            className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="submit"
+          >
+            Save all
+          </button>
         </Form>
       )}
     </Formik>

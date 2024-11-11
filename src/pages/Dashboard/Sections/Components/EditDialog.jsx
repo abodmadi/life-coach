@@ -1,41 +1,14 @@
 import { useContext } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import { updateData } from "@/Services/AxiosAPIServices";
-import toast from "react-hot-toast";
-import FormContainer from "@/components/FormContainer";
 export default function EditDialog({
   children,
   header,
-  endPoint,
-  successMessage,
 }) {
-  const queryClient = useQueryClient();
-
   const {
     isUpdateDialogClicked,
     setIsUpdateDialogClicked,
-    updatedItemId,
-    setUpdatedItemId,
+   
   } = useContext(AdminDashboardContext);
-
-  const updateMutation = useMutation({
-    mutationKey: ["edit", endPoint + updatedItemId],
-    mutationFn: async () => updateData(endPoint + updatedItemId, "data"),
-    onMutate: () => {},
-    onError: (error) => {
-      //toast.error(error?.response?.data?.errors[0]?.msg);
-      toast.error(error?.message);
-      setIsUpdateDialogClicked(false);
-      setUpdatedItemId(null);
-    },
-    onSuccess: () => {
-      toast.success(successMessage);
-      queryClient.invalidateQueries("courses");
-      setUpdatedItemId(null);
-      setIsUpdateDialogClicked(false);
-    },
-  });
 
   return (
     <div
@@ -75,14 +48,6 @@ export default function EditDialog({
             {children}
           </div>
           {/* // Modal footer // */}
-          <div className="p-6 border-t border-gray-200 rounded-b">
-            <button
-              className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              type="submit"
-            >
-              Save all
-            </button>
-          </div>
         </div>
       </div>
     </div>

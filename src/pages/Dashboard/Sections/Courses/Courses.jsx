@@ -43,12 +43,11 @@ export default function Courses() {
         endPoint={coursesUrl + "/delete/"}
         successMessage={"تم حذف الدورة بنجاح"}
       />
-      <EditDialog
-        header={"Edit product"}
-        endPoint={""}
-        successMessage={"تم تعديل الدورة بنجاح"}
-      >
-        <EditCourseForm />
+      <EditDialog header={"Edit product"}>
+        <EditCourseForm
+          endPoint={"course"}
+          successMessage={"تم تعديل الدورة بنجاح"}
+        />
       </EditDialog>
       <NewItemDialog header={"Add product"} />
     </>

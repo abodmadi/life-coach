@@ -27,9 +27,6 @@ export const valSm = yup.object().shape({
 });
 export const editCourseValidation = yup.object().shape({
   name: yup.string().required("Required"),
-  email: yup.string().email("Invalid email").required("Required"),
-  phone: yup.string()
-    .matches(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Phone number is not valid")
-    .required("Required"),
-  message: yup.string().required("Required"),
+  description: yup.string().required("Required"),
+  price: yup.number().required("Required"),
 });
