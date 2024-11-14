@@ -1,30 +1,26 @@
 import { useContext } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
-export default function EditDialog({
-  children,
-  header,
-}) {
-  const {
-    isUpdateDialogClicked,
-    setIsUpdateDialogClicked,
-   
-  } = useContext(AdminDashboardContext);
+export default function EditDialog({ children, header }) {
+  const { isUpdateDialogClicked, setIsUpdateDialogClicked, setUpdatedItemId } =
+    useContext(AdminDashboardContext);
 
   return (
     <div
       className={`${
         !isUpdateDialogClicked && "hidden"
-      } h-full bg-gray-700/50 flex overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full`}
+      } h-full bg-gray-700/50 flex overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center `}
     >
-      <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
-        /{/* / Modal content // */}
-        <div className="bg-white rounded-lg shadow relative">
-          {/* // Modal header // */}
+      <div className="relative w-full max-w-2xl px-4 h-full md:h-full">
+        <div className="bg-white rounded-lg shadow relative h-full overflow-y-auto">
+          {/*  Modal header  */}
           <div className="flex items-start justify-between p-5 border-b rounded-t">
             <p className="text-xl font-semibold">{header}</p>
             <button
               type="button"
-              onClick={() => setIsUpdateDialogClicked(false)}
+              onClick={() => {
+                setUpdatedItemId(null);
+                setIsUpdateDialogClicked(false);
+              }}
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5  inline-flex items-center"
               data-modal-toggle="product-modal"
             >
@@ -42,12 +38,8 @@ export default function EditDialog({
               </svg>
             </button>
           </div>
-          {/* // Modal body // */}
-          <div className="p-6 space-y-6">
-            {/* Form */}
-            {children}
-          </div>
-          {/* // Modal footer // */}
+          {/* Form */}
+          <div className="p-6 space-y-6">{children}</div>
         </div>
       </div>
     </div>

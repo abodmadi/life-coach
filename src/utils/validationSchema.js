@@ -25,7 +25,7 @@ export const requestSchema = yup.object().shape({
 export const valSm = yup.object().shape({
   pname: yup.string().min(5, "يجب ان لا يقل عن 5 حروف").required("مطلوب"),
 });
-export const editCourseValidation = yup.object().shape({
+export const courseValidation = yup.object().shape({
   name: yup.string().required("Required"),
   description: yup.string().required("Required"),
   price: yup.number().required("Required"),

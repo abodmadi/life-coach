@@ -4,15 +4,14 @@ import { courseValidation } from "@/utils/validationSchema";
 import { useContext, useState } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateData } from "@/Services/AxiosAPIServices";
+import { setData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
-export default function EditCourseForm({ successMessage, endPoint }) {
+export default function NewCourseForm({ successMessage, endPoint }) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsUpdateDialogClicked, updatedItemId, setUpdatedItemId } =
-    useContext(AdminDashboardContext);
+  const { setIsAddNewDialogClicked } = useContext(AdminDashboardContext);
 
   let initialValues = {
     name: "",
@@ -21,33 +20,23 @@ export default function EditCourseForm({ successMessage, endPoint }) {
     coverImage: "",
   };
 
-  if (updatedItemId) {
-    initialValues.name = updatedItemId?.name;
-    initialValues.description = updatedItemId?.description;
-    initialValues.price = updatedItemId?.price;
-    initialValues.coverImage = updatedItemId?.coverImage;
-  }
-
-  const updateMutation = useMutation({
-    mutationKey: ["edit", endPoint + updatedItemId],
-    mutationFn: async (values) =>
-      updateData(endPoint + `${updatedItemId?.id}`, values),
+  const newMutation = useMutation({
+    mutationKey: ["new", endPoint],
+    mutationFn: async (values) => setData(endPoint, values),
     onMutate: () => {
       setIsLoading(true);
     },
     onError: (error) => {
       //toast.error(error?.response?.data?.errors[0]?.msg);
       toast.error(error?.message);
-      setIsUpdateDialogClicked(false);
+      setIsAddNewDialogClicked(false);
       setIsLoading(false);
-      setUpdatedItemId(null);
     },
     onSuccess: () => {
       toast.success(successMessage);
       queryClient.invalidateQueries("courses");
-      setUpdatedItemId(null);
       setIsLoading(false);
-      setIsUpdateDialogClicked(false);
+      setIsAddNewDialogClicked(false);
     },
   });
 
@@ -62,34 +51,26 @@ export default function EditCourseForm({ successMessage, endPoint }) {
       .then((response) => {
         setIsLoading(false);
         return response.data;
-      }); //.env
+      });
 
     return imageUrl.secure_url;
   };
 
   const handleSubmit = async (values) => {
-    if (JSON.stringify(values) !== JSON.stringify(initialValues)) {
-      if (values.coverImage !== initialValues.coverImage) {
-        const newCoverImage = await uploadToCloudinary(values.coverImage);
-        values.coverImage = newCoverImage;
-      }
-      updateMutation.mutate(values);
-    } else {
-      setUpdatedItemId(null);
-      setIsLoading(false);
-      setIsUpdateDialogClicked(false);
-    }
+    const newCoverImage = await uploadToCloudinary(values.coverImage);
+    values.coverImage = newCoverImage;
+    values.adminId="2b4bf124-592b-4ba8-b2cb-06a15fe4f27e"
+    newMutation.mutate(values);
   };
+
   return (
-    updatedItemId && (
-      <FormContainer
-        fields={courseFields}
-        initialValues={initialValues}
-        validationSchema={courseValidation}
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
-        buttonText={"تعديل"}
-      />
-    )
+    <FormContainer
+      fields={courseFields}
+      initialValues={initialValues}
+      validationSchema={courseValidation}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      buttonText={"إضافة"}
+    />
   );
 }

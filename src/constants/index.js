@@ -288,12 +288,13 @@ export const tableColumnsNames = [
   "عدد الفصول",
   "المحرر",
 ];
-export const editCourseFields = [
+export const courseFields = [
   {
     name: "name",
     label: "اسم الدورة",
     type: "text",
-    placeholder: " ",
+    placeholder: "",
+    data: "text",
   },
 
   {
@@ -301,18 +302,22 @@ export const editCourseFields = [
     label: "السعر",
     type: "number",
     placeholder: "",
+    data: "number",
   },
-  {
-    name: "coverImage",
-    label: "صورة الغلاف",
-    type: "url",
-    placeholder: "",
-  },
+
   {
     name: "description",
     label: "الوصف",
     type: "text",
     component: "textarea",
     placeholder: "",
+    data: "text",
+  },
+  {
+    name: "coverImage",
+    label: "صورة الغلاف",
+    type: "file",
+    placeholder: "",
+    data: "image",
   },
 ];

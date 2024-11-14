@@ -9,6 +9,7 @@ import EditDialog from "../Components/EditDialog";
 import NewItemDialog from "../Components/NewItemDialog";
 import toast from "react-hot-toast";
 import EditCourseForm from "@/forms/EditCourseForm";
+import NewCourseForm from "@/forms/NewCourseForm";
 
 export default function Courses() {
   const {
@@ -45,11 +46,16 @@ export default function Courses() {
       />
       <EditDialog header={"Edit product"}>
         <EditCourseForm
-          endPoint={"course"}
+          endPoint={coursesUrl + "/update/"}
           successMessage={"تم تعديل الدورة بنجاح"}
         />
       </EditDialog>
-      <NewItemDialog header={"Add product"} />
+      <NewItemDialog header={"إضافة دورة جديدة"}>
+        <NewCourseForm
+          endPoint={coursesUrl + "/store"}
+          successMessage={"تم  إضافة الدورة بنجاح"}
+        />
+      </NewItemDialog>
     </>
   );
 }

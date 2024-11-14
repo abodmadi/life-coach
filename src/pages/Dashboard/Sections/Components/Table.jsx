@@ -203,7 +203,7 @@ export default function Table({
                         <button
                           type="button"
                           onClick={() => {
-                            setUpdatedItemId(row?.id);
+                            setUpdatedItemId(row);
                             setIsUpdateDialogClicked(true);
                           }}
                           data-modal-toggle="product-modal"

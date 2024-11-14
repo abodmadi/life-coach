@@ -8,9 +8,7 @@ export async function setData(url, data) {
 }
 
 export async function updateData(url, data) {
-  return await axiosClientAPI
-    .patch(url, data)
-    .then((response) => response.data);
+  return await axiosClientAPI.put(url, data).then((response) => response.data);
 }
 
 export async function deleteData(url) {
