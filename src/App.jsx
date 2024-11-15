@@ -21,6 +21,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
+import DashBoardHome from "./pages/Dashboard/Sections/DashBoardHome/DashBoardHome";
+import Chapters from "./pages/Dashboard/Sections/Chapters/Chapters";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -60,8 +62,9 @@ function App() {
             <Route path="whats-app" element={<WhatsAppRequestForm />} />
           </Route>
           <Route path="/dashboard" element={<Dashboard />}>
-            <Route index element={<AdminCourses />} />
-            <Route />
+            <Route index element={<DashBoardHome />} />
+            <Route path="courses" element={<AdminCourses />} />
+            <Route path="chapters" element={<Chapters />} />
           </Route>
           <Route element={<PrivateRoute isProtectedRoute={false} />}>
             <Route path="/profile" element={<Profile />} />

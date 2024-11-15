@@ -5,6 +5,7 @@ import { deleteData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import ButtonLoader from "@/components/ButtonLoader";
 export default function DeleteDialog({
+  queryKey,
   message,
   endPoint,
   successMessage,
@@ -34,7 +35,7 @@ export default function DeleteDialog({
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries("courses");
+      queryClient.invalidateQueries({queryKey});
       setIsLoading(false);
       setDeletedItemId(null);
       setIsDeleteDialogClicked(false);

@@ -3,7 +3,11 @@ import ethics from "@/assets/svgs/ethics.svg";
 import lifestyle from "@/assets/svgs/lifestyle.svg";
 import skill from "@/assets/svgs/skill.svg";
 import abilities from "@/assets/svgs/abilities.svg";
-
+import { icon } from "@fortawesome/fontawesome-svg-core";
+import control from "@/assets/svgs/control.svg";
+import courses from "@/assets/svgs/courses.svg";
+import chapters from "@/assets/svgs/chapters.svg";
+import assigments from "@/assets/svgs/assigments.svg";
 export const sideBarItems = [
   {
     title: "Dashboard",
@@ -279,13 +283,22 @@ export const requestPaymentWaysList = [
   },
 ];
 
-export const tableColumnsNames = [
+export const tableCourseColumnsNames = [
   "الرقم",
   "صورة الغلاف",
   "الأسم",
   "الوصف",
   "السعر",
   "عدد الفصول",
+  "المحرر",
+];
+export const tableChapterColumnsNames = [
+  "الرقم",
+  "صورة الغلاف",
+  "الأسم",
+  "الوصف",
+  "اسم الدورة",
+  "عدد المقاطع",
   "المحرر",
 ];
 export const courseFields = [
@@ -319,5 +332,60 @@ export const courseFields = [
     type: "file",
     placeholder: "",
     data: "image",
+  },
+];
+export const chapterFields = [
+  {
+    name: "name",
+    label: "اسم الفصل",
+    type: "text",
+    placeholder: "",
+    data: "text",
+  },
+
+  {
+    name: "videos",
+    label: "المقاطع",
+    type: "url",
+    placeholder: "",
+    data: "number",
+  },
+
+  {
+    name: "description",
+    label: "الوصف",
+    type: "text",
+    component: "textarea",
+    placeholder: "",
+    data: "text",
+  },
+  {
+    name: "coverImage",
+    label: "صورة الغلاف",
+    type: "file",
+    placeholder: "",
+    data: "image",
+  },
+];
+export const sideBarRoutes = [
+  {
+    routeName: "لوحة التحكم",
+    routeLink: "",
+    routeIcon: control,
+  },
+  {
+    routeName: "الدورات",
+    routeLink: "courses",
+    routeIcon: courses,
+  },
+  {
+    routeName: "الفصول",
+    routeLink: "chapters",
+    routeIcon: chapters,
+  },
+  {
+    routeName: "الواجبات",
+    routeLink: "assigments",
+    routeIcon: assigments,
   },
 ];

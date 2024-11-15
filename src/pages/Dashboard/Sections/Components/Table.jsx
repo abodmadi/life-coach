@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
 
 export default function Table({
+  hide,
   header,
   tableColumnsNames,
   tableRows,
@@ -187,15 +188,29 @@ export default function Table({
                           {row?.description}
                         </p>
                       </td>
+                      {hide ? (
+                        <td className="p-2 whitespace-nowrap text-center text-base font-medium text-gray-900">
+                          {row?.price}$
+                        </td>
+                      ) : (
+                        <td className="p-2 text-base font-medium text-gray-900">
+                          <p className="line-clamp-2 min-w-28">
+                            {row?.course?.name}
+                          </p>
+                        </td>
+                      )}
                       <td className="p-2 whitespace-nowrap text-center text-base font-medium text-gray-900">
-                        {row?.price}$
-                      </td>
-                      <td className="p-2 whitespace-nowrap text-center text-base font-medium text-gray-900">
-                        {row?._count.chapters}
+                        {row?._count?.chapters || row?._count?.videos || "3"}
                       </td>
                       <td className="p-2 text-base font-medium text-gray-900">
                         <p className="line-clamp-2 min-w-28">
-                          {row?.admin.firstName} {row?.admin.lastName}
+                          {hide
+                            ? [row?.admin?.firstName, " ", row?.admin?.lastName]
+                            : [
+                                row?.course?.admin?.firstName,
+                                " ",
+                                row?.course?.admin?.lastName,
+                              ]}
                         </p>
                       </td>
                       {/* Actions Dialog Button */}

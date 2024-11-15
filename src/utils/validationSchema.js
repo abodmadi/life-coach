@@ -30,3 +30,8 @@ export const courseValidation = yup.object().shape({
   description: yup.string().required("Required"),
   price: yup.number().required("Required"),
 });
+export const chapterValidation = yup.object().shape({
+  name: yup.string().required("Required"),
+  description: yup.string().required("Required"),
+  video: yup.string().required("Required"),
+});

@@ -1,5 +1,5 @@
 import Table from "../Components/Table";
-import { tableColumnsNames } from "@/constants";
+import { tableCourseColumnsNames } from "@/constants";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "@/Services/AxiosAPIServices";
 import { coursesUrl } from "@/utils";
@@ -32,19 +32,21 @@ export default function Courses() {
   ) : (
     <>
       <Table
+        hide={true}
         header={"جميع الدورات"}
-        tableColumnsNames={tableColumnsNames}
+        tableColumnsNames={tableCourseColumnsNames}
         tableRows={courses}
         newItemTitle={"إضافة دورة"}
         deleteItemTitle={"حذف الدورة"}
         editItemTitle={"تعديل الدورة"}
       />
       <DeleteDialog
+        queryKey={"courses"}
         message={"هل أنت متأكد من أنك تريد حذف هذه الدورة؟"}
         endPoint={coursesUrl + "/delete/"}
         successMessage={"تم حذف الدورة بنجاح"}
       />
-      <EditDialog header={"Edit product"}>
+      <EditDialog header={"تعديل الدورة"}>
         <EditCourseForm
           endPoint={coursesUrl + "/update/"}
           successMessage={"تم تعديل الدورة بنجاح"}
