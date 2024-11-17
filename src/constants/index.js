@@ -348,7 +348,7 @@ export const chapterFields = [
     label: "المقاطع",
     type: "url",
     placeholder: "",
-    data: "number",
+    data: "videos",
   },
 
   {

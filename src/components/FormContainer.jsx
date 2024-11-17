@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import ButtonLoader from "./ButtonLoader";
-
+import { useState } from "react";
 function FormContainer({
   fields,
   initialValues,
@@ -9,6 +9,27 @@ function FormContainer({
   isLoading,
   buttonText,
 }) {
+  const [inputs, setInputs] = useState([
+    { value: "" },
+    { value: "" },
+    { value: "" },
+  ]);
+
+  const handleChange = (index, event) => {
+    const newInputs = inputs.map((input, i) =>
+      i === index ? { value: event.target.value } : input
+    );
+    setInputs(newInputs);
+  };
+
+  const handleAddInput = () => {
+    setInputs([...inputs, { value: "" }]);
+  };
+
+  const handleRemoveInput = (index) => {
+    const newInputs = inputs.filter((_, i) => i !== index);
+    setInputs(newInputs);
+  };
   return (
     <Formik
       initialValues={initialValues}
@@ -19,28 +40,65 @@ function FormContainer({
         <Form onSubmit={handleSubmit}>
           {fields.map((field) =>
             field.data != "image" ? (
-              <div key={field.name} className="mb-4">
-                <label
-                  htmlFor={field.name}
-                  className="block text-sm font-bold mb-2"
-                >
-                  {field.label}
-                </label>
-                <Field
-                  id={field.name}
-                  name={field.name}
-                  type={field.type}
-                  as={field.component || "input"}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder={field.placeholder}
-                />
+              field.data != "videos" ? (
+                <div key={field.name} className="mb-4">
+                  <label
+                    htmlFor={field.name}
+                    className="block text-sm font-bold mb-2"
+                  >
+                    {field.label}
+                  </label>
+                  <Field
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    as={field.component || "input"}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder={field.placeholder}
+                  />
 
-                <ErrorMessage
-                  name={field.name}
-                  component="div"
-                  className="text-red-500 text-xs italic"
-                />
-              </div>
+                  <ErrorMessage
+                    name={field.name}
+                    component="div"
+                    className="text-red-500 text-xs italic"
+                  />
+                </div>
+              ) : (
+                <div>
+                  {inputs.map((input, index) => (
+                    <div key={index}>
+                      <div className="mb-4">
+                        <label
+                          htmlFor={field.name}
+                          className="block text-sm font-bold mb-2"
+                        >
+                          {field.label} {index}
+                        </label>
+                        <Field
+                          id={field.name}
+                          name={field.name}
+                          type={field.type}
+                          as={field.component || "input"}
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder={field.placeholder}
+                        />
+
+                        <ErrorMessage
+                          name={field.name}
+                          component="div"
+                          className="text-red-500 text-xs italic"
+                        />
+                      </div>
+                      {index > 2 && (
+                        <button onClick={() => handleRemoveInput(index)}>
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button onClick={handleAddInput}>Add Input</button>
+                </div>
+              )
             ) : (
               <div key={field.name} className="flex flex-col mb-6 gap-y-2">
                 <label className="block text-sm font-bold mb-2">
