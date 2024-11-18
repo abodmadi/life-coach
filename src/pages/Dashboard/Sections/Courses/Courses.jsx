@@ -8,8 +8,8 @@ import DeleteDialog from "../Components/DeleteDialog";
 import EditDialog from "../Components/EditDialog";
 import NewItemDialog from "../Components/NewItemDialog";
 import toast from "react-hot-toast";
-import EditCourseForm from "@/forms/EditCourseForm";
-import NewCourseForm from "@/forms/NewCourseForm";
+import EditCourseForm from "@/pages/Forms/EditCourseForm";
+import NewCourseForm from "@/pages/Forms/NewCourseForm";
 
 export default function Courses() {
   const {
@@ -48,12 +48,14 @@ export default function Courses() {
       />
       <EditDialog header={"تعديل الدورة"}>
         <EditCourseForm
+          queryKey={"courses"}
           endPoint={coursesUrl + "/update/"}
           successMessage={"تم تعديل الدورة بنجاح"}
         />
       </EditDialog>
       <NewItemDialog header={"إضافة دورة جديدة"}>
         <NewCourseForm
+          queryKey={"courses"}
           endPoint={coursesUrl + "/store"}
           successMessage={"تم  إضافة الدورة بنجاح"}
         />

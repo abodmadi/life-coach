@@ -1,6 +1,6 @@
 import FormContainer from "@/components/FormContainer";
-import { chapterFields } from "@/constants";
-import { chapterValidation } from "@/utils/validationSchema";
+import { courseFields } from "@/constants";
+import { courseValidation } from "@/utils/validationSchema";
 import { useContext, useState } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { updateData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
-function EditChapterForm({ successMessage, endPoint }) {
+export default function EditCourseForm({ successMessage, endPoint,queryKey }) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsUpdateDialogClicked, updatedItemId, setUpdatedItemId } =
@@ -17,14 +17,14 @@ function EditChapterForm({ successMessage, endPoint }) {
   let initialValues = {
     name: "",
     description: "",
-    videos: "",
+    price: "",
     coverImage: "",
   };
 
   if (updatedItemId) {
     initialValues.name = updatedItemId?.name;
     initialValues.description = updatedItemId?.description;
-    initialValues.videos = updatedItemId?.videos;
+    initialValues.price = updatedItemId?.price;
     initialValues.coverImage = updatedItemId?.coverImage;
   }
 
@@ -44,7 +44,7 @@ function EditChapterForm({ successMessage, endPoint }) {
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries("chapters");
+      queryClient.invalidateQueries(queryKey);
       setUpdatedItemId(null);
       setIsLoading(false);
       setIsUpdateDialogClicked(false);
@@ -83,9 +83,9 @@ function EditChapterForm({ successMessage, endPoint }) {
   return (
     updatedItemId && (
       <FormContainer
-        fields={chapterFields}
+        fields={courseFields}
         initialValues={initialValues}
-        validationSchema={chapterValidation}
+        validationSchema={courseValidation}
         onSubmit={handleSubmit}
         isLoading={isLoading}
         buttonText={"تعديل"}
@@ -93,4 +93,3 @@ function EditChapterForm({ successMessage, endPoint }) {
     )
   );
 }
-export default EditChapterForm;

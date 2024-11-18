@@ -35,7 +35,7 @@ export default function DeleteDialog({
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries({queryKey});
+      queryClient.invalidateQueries(queryKey);
       setIsLoading(false);
       setDeletedItemId(null);
       setIsDeleteDialogClicked(false);

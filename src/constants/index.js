@@ -8,6 +8,9 @@ import control from "@/assets/svgs/control.svg";
 import courses from "@/assets/svgs/courses.svg";
 import chapters from "@/assets/svgs/chapters.svg";
 import assigments from "@/assets/svgs/assigments.svg";
+import deleteIo from "@/assets/svgs/delete.svg";
+
+export const deleteIcon = deleteIo;
 export const sideBarItems = [
   {
     title: "Dashboard",
@@ -345,7 +348,7 @@ export const chapterFields = [
 
   {
     name: "videos",
-    label: "المقاطع",
+    label: "فيديو",
     type: "url",
     placeholder: "",
     data: "videos",

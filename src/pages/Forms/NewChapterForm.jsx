@@ -1,6 +1,6 @@
 import FormContainer from "@/components/FormContainer";
-import { courseFields } from "@/constants";
-import { courseValidation } from "@/utils/validationSchema";
+import { chapterFields } from "@/constants";
+import { chapterValidation } from "@/utils/validationSchema";
 import { useContext, useState } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { setData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
-export default function NewCourseForm({ successMessage, endPoint }) {
+export default function NewChapterForm({ successMessage, endPoint }) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsAddNewDialogClicked } = useContext(AdminDashboardContext);
@@ -16,7 +16,7 @@ export default function NewCourseForm({ successMessage, endPoint }) {
   let initialValues = {
     name: "",
     description: "",
-    price: "",
+    videos: [""],
     coverImage: "",
   };
 
@@ -34,7 +34,7 @@ export default function NewCourseForm({ successMessage, endPoint }) {
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries("courses");
+      queryClient.invalidateQueries("chapters");
       setIsLoading(false);
       setIsAddNewDialogClicked(false);
     },
@@ -56,21 +56,22 @@ export default function NewCourseForm({ successMessage, endPoint }) {
     return imageUrl.secure_url;
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const newCoverImage = await uploadToCloudinary(values.coverImage);
     values.coverImage = newCoverImage;
-    values.adminId="2b4bf124-592b-4ba8-b2cb-06a15fe4f27e"
     newMutation.mutate(values);
+
+    resetForm()
   };
 
   return (
     <FormContainer
-      fields={courseFields}
+      fields={chapterFields}
       initialValues={initialValues}
-      validationSchema={courseValidation}
+      validationSchema={chapterValidation}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      buttonText={"إضافة"}
+      buttonText={"اضافة"}
     />
   );
 }

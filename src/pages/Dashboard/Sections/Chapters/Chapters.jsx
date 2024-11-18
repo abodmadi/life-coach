@@ -8,8 +8,8 @@ import DeleteDialog from "../Components/DeleteDialog";
 import EditDialog from "../Components/EditDialog";
 import NewItemDialog from "../Components/NewItemDialog";
 import toast from "react-hot-toast";
-import EditChapterForm from "@/forms/EditChapterForm";
-import NewChapterForm from "@/forms/NewChapterForm";
+import EditChapterForm from "@/pages/Forms/EditChapterForm";
+import NewChapterForm from "@/pages/Forms/NewChapterForm";
 
 function Chapters() {
   const {

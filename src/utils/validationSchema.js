@@ -35,3 +35,16 @@ export const chapterValidation = yup.object().shape({
   description: yup.string().required("Required"),
   video: yup.string().required("Required"),
 });
+
+/* 
+video schema
+const validationSchema = Yup.object().shape({
+  urls: Yup.array()
+    .of(
+      Yup.string()
+        .url("Invalid URL format") // Validate each string as a URL
+        .required("URL is required")
+    )
+    .min(1, "At least one URL is required") // Ensure the array has at least one item
+    .required("URLs field is required"),
+}); */

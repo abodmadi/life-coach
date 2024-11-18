@@ -1,6 +1,6 @@
 import FormContainer from "@/components/FormContainer";
-import { courseFields } from "@/constants";
-import { courseValidation } from "@/utils/validationSchema";
+import { chapterFields } from "@/constants";
+import { chapterValidation } from "@/utils/validationSchema";
 import { useContext, useState } from "react";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { updateData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
-export default function EditCourseForm({ successMessage, endPoint }) {
+function EditChapterForm({ successMessage, endPoint }) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsUpdateDialogClicked, updatedItemId, setUpdatedItemId } =
@@ -17,14 +17,14 @@ export default function EditCourseForm({ successMessage, endPoint }) {
   let initialValues = {
     name: "",
     description: "",
-    price: "",
+    videos: [""],
     coverImage: "",
   };
 
   if (updatedItemId) {
     initialValues.name = updatedItemId?.name;
     initialValues.description = updatedItemId?.description;
-    initialValues.price = updatedItemId?.price;
+    initialValues.videos = updatedItemId.videos.map((item) => item.videoUrl);
     initialValues.coverImage = updatedItemId?.coverImage;
   }
 
@@ -44,7 +44,7 @@ export default function EditCourseForm({ successMessage, endPoint }) {
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries("courses");
+      queryClient.invalidateQueries("chapters");
       setUpdatedItemId(null);
       setIsLoading(false);
       setIsUpdateDialogClicked(false);
@@ -83,9 +83,9 @@ export default function EditCourseForm({ successMessage, endPoint }) {
   return (
     updatedItemId && (
       <FormContainer
-        fields={courseFields}
+        fields={chapterFields}
         initialValues={initialValues}
-        validationSchema={courseValidation}
+        validationSchema={chapterValidation}
         onSubmit={handleSubmit}
         isLoading={isLoading}
         buttonText={"تعديل"}
@@ -93,3 +93,4 @@ export default function EditCourseForm({ successMessage, endPoint }) {
     )
   );
 }
+export default EditChapterForm;

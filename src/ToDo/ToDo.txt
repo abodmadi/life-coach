@@ -1,0 +1,14 @@
+Clodinary:
+    1.update,delete : remove image []
+
+Ui:
+
+
+Table:
+    1.scroll problem []
+
+
+Form:
+    1.validation for all Forms []
+    2.responsive []
+    3.when close dialog must reset the form or reload []

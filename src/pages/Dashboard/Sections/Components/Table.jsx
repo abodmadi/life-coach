@@ -200,7 +200,7 @@ export default function Table({
                         </td>
                       )}
                       <td className="p-2 whitespace-nowrap text-center text-base font-medium text-gray-900">
-                        {row?._count?.chapters || row?._count?.videos || "3"}
+                        {row?._count?.chapters || row?._count?.videos }
                       </td>
                       <td className="p-2 text-base font-medium text-gray-900">
                         <p className="line-clamp-2 min-w-28">
