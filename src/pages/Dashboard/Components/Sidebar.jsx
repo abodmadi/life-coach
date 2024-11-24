@@ -3,11 +3,11 @@ import react from "@heroicons/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 export default function Sidebar({ sideBarRoutes }) {
-  const { isSidebarOpen } = useContext(AdminDashboardContext);
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(AdminDashboardContext);
   return (
     <aside
       id="logo-sidebar"
-      className={`fixed top-0 right-0 z-40 w-64 h-screen pt-20 transition-transform sm:-translate-x-0 bg-green-300 border-r border-gray-200  ${
+      className={`fixed top-0 right-0 z-40 w-64 h-screen pt-20 transition-transform sm:-translate-x-0 bg-gray-200 border-r border-gray-200  ${
         !isSidebarOpen ? "translate-x-full" : "-translate-x-0"
       } `}
       aria-label="Sidebar"
@@ -18,6 +18,7 @@ export default function Sidebar({ sideBarRoutes }) {
           {sideBarRoutes.map((item, index) => (
             <li key={index}>
               <Link
+                onClick={() => setIsSidebarOpen(false)}
                 to={item.routeLink}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >

@@ -108,7 +108,7 @@ export default function Details() {
               </div>
               <div className="flex -mx-2 mt-10">
                 <div className="w-1/2 px-2">
-                  <Button text={"احجز الآن"} toPage={"/"} />
+                  <Button text={"احجز الآن"} toPage={"/request-form"} />
                 </div>
               </div>
             </div>

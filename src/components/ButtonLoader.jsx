@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "@/styles/buttonLoader.module.css"
-export default function ButtonLoader() {
+export default function ButtonLoader({defoult=true}) {
   return (
-    <div className={`${styles.loader} w-5`}></div>
+    <div className={`${defoult ? styles.loader:styles.loader2} w-5`}></div>
   )
 }

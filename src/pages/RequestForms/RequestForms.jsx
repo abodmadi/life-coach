@@ -63,7 +63,7 @@ export default function RequestForms() {
         </div>
         <div className="flex justify-center gap-x-8 py-8">
           <Button text={"الدفع الإلكتروني"}  toPage={"payment-way"}/>
-          <Button text={"الواتساب"} toPage={"https://api.whatsapp.com/send/?phone=%2B201554827311&text&type=phone_number&app_absent=0"}/>
+          <Button text={"الواتساب"} toPage={"https://api.whatsapp.com/send/?phone=%2B201023050092&text&type=phone_number&app_absent=0"}/>
         </div>
       </div>}
     </div>

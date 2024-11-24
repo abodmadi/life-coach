@@ -8,16 +8,30 @@ import { setData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
-export default function NewChapterForm({ successMessage, endPoint }) {
+export default function NewChapterForm({
+  successMessage,
+  endPoint,
+  queryKey,
+  options,
+}) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsAddNewDialogClicked } = useContext(AdminDashboardContext);
+
+  /*console.log(courses?.data);
+
+   if (courses.isSuccess) {
+    console.table(
+     
+    );
+  } */
 
   let initialValues = {
     name: "",
     description: "",
     videos: [""],
     coverImage: "",
+    courseId: "",
   };
 
   const newMutation = useMutation({
@@ -34,7 +48,7 @@ export default function NewChapterForm({ successMessage, endPoint }) {
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries("chapters");
+      queryClient.invalidateQueries(queryKey);
       setIsLoading(false);
       setIsAddNewDialogClicked(false);
     },
@@ -57,11 +71,17 @@ export default function NewChapterForm({ successMessage, endPoint }) {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    const newCoverImage = await uploadToCloudinary(values.coverImage);
-    values.coverImage = newCoverImage;
-    newMutation.mutate(values);
-
-    resetForm()
+    try {
+      const newCoverImage = await uploadToCloudinary(values.coverImage);
+      values.coverImage = newCoverImage;
+      values.videos = values.videos.map((item) => {
+        return { videoUrl: item };
+      });
+      await newMutation.mutateAsync(values);
+      resetForm();
+    } catch (error) {
+      toast.error(`error:${error}`);
+    }
   };
 
   return (
@@ -72,6 +92,8 @@ export default function NewChapterForm({ successMessage, endPoint }) {
       onSubmit={handleSubmit}
       isLoading={isLoading}
       buttonText={"اضافة"}
+      options={options}
+      selectionMessage={"أختر دورة"}
     />
   );
 }

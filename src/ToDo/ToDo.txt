@@ -2,6 +2,7 @@ Clodinary:
     1.update,delete : remove image []
 
 Ui:
+    1.responsive of all pages []
 
 
 Table:
@@ -9,6 +10,29 @@ Table:
 
 
 Form:
-    1.validation for all Forms []
+    1.validation for all Forms [courses(done),chapters(done)]
     2.responsive []
     3.when close dialog must reset the form or reload []
+    4.Add try and catch in forms using clodinary []
+    5.desable inputs when clecked on button []
+
+
+Error:
+    1.create error page for all apis []
+    2.In courses table fix this: []
+        ."Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received" []
+        ."Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies." []
+
+
+ReactQuery:
+    1.window refetch state []
+    2.background state []
+    3.time fresh data []
+    4.setIsLoading false in all mutaions []
+
+Helmet:
+    1.add helmet to all pages []
+
+Main Header:
+    1.animation background []
+    2.make it reusable components [] 

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../styles/header.module.css";
+import { useSelector } from "react-redux";
+import Button from "./Button";
+import { userAccountList } from "@/constants";
 
 export default function Header() {
   const [isClicked, setIsClicked] = useState(false);
@@ -11,6 +14,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
   window.addEventListener("scroll", () => {
     if (window.scrollY > window.screen.height) {
       //console.log("tr",window.scrollY)
@@ -177,80 +181,92 @@ export default function Header() {
             </nav>
 
             {/* Profile Icon and List */}
-            <div className="hidden md:relative md:block">
-              <img
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="User image"
-                className="cursor-pointer rounded-full size-10 object-cover"
-                onClick={(img) =>
-                  document.addEventListener("click", (e) => {
-                    if (e.target == img.target) {
-                      setIsClicked(!isClicked);
-                    } else {
-                      setIsClicked(false);
-                    }
-                  })
-                }
-              />
+            {currentUser ? (
+              <div className="hidden md:relative md:block">
+                <img
+                  src={currentUser.user.image}
+                  alt="User image"
+                  className="cursor-pointer rounded-full size-10 object-cover"
+                  onClick={(img) =>
+                    document.addEventListener("click", (e) => {
+                      if (e.target == img.target) {
+                        setIsClicked(!isClicked);
+                      } else {
+                        setIsClicked(false);
+                      }
+                    })
+                  }
+                />
 
-              {isClicked && !isHovered && (
-                <div
-                  className="absolute end-0 z-10 mt-0.5 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
-                  role="menu"
-                >
-                  <div className="p-2">
-                    <Link
-                      className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
-                      role="menuitem"
-                      to={"/profile"}
-                    >
-                      My profile
-                    </Link>
+                {isClicked && !isHovered && (
+                  <div
+                    className="absolute end-0 z-10 mt-0.5 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
+                    role="menu"
+                  >
+                    <div className="p-2">
+                      {userAccountList.map((item, index) => (
+                        <Link
+                          key={index}
+                          className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
+                          role="menuitem"
+                          to={item.to}
+                        >
+                          {item.title}
+                        </Link>
+                      ))}
 
-                    <Link
-                      to={"/dashboard"}
-                      className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
-                      role="menuitem"
-                    >
-                      Dashboard
-                    </Link>
-
-                    <Link
-                      to={"/"}
-                      className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
-                      role="menuitem"
-                    >
-                      Team settings
-                    </Link>
-                  </div>
-
-                  <div className="p-2">
-                    <button
-                      onClick={handelLogout}
-                      type="button"
-                      className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-100"
-                      role="menuitem"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="size-4"
+                      {/* <Link
+                        to={"/dashboard"}
+                        className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
+                        role="menuitem"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                        />
-                      </svg>
-                      Logout
-                    </button>
+                        Dashboard
+                      </Link>
+
+                      <Link
+                        to={"/"}
+                        className="block rounded-lg px-4 py-2 text-sm text-blueVeryDark-700 hover:bg-blueVeryDark-100 hover:text-blueVeryDark-950"
+                        role="menuitem"
+                      >
+                        Team settings
+                      </Link> */}
+                    </div>
+
+                    <div className="p-2">
+                      <button
+                        onClick={handelLogout}
+                        type="button"
+                        className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-100"
+                        role="menuitem"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="size-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                          />
+                        </svg>
+                        Logout
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to={"/sign-in"}
+                className="text-lg font-semibold text-blueVeryDark-700 hover:text-blueVeryDark-950 cursor-pointer "
+              >
+                تسجيل الدخول
+              </Link>
+            )}
 
             {/* Mobile Menu */}
             <div className="block md:hidden">

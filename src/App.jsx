@@ -21,9 +21,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
-import DashBoardHome from "./pages/Dashboard/Sections/DashBoardHome/DashBoardHome";
+import DashboardHome from "./pages/Dashboard/Sections/DashboardHome/DashBoardHome";
 import Chapters from "./pages/Dashboard/Sections/Chapters/Chapters";
-
+import { useSelector } from "react-redux";
+import Error from "./components/Error";
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const queryClient = new QueryClient();
@@ -34,6 +35,8 @@ function App() {
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOnline);
   }, []);
+  const { currentUser } = useSelector((state) => state.user);
+  console.log("vvvvvvv", currentUser);
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -43,35 +46,70 @@ function App() {
               icon: "🌐",
               position: "top-center",
             })}
-        {/*  <Header /> */}
+        {currentUser && currentUser.user.role === "STUDENT"}
+        <Header />
         {/*<div className="m-5">
       <Breadcrumb/>
     </div> */}
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/contact-us" element={<Contact />} />
-          <Route path="/faqs" element={<FAQs />} />
+          <Route
+            element={
+              <PrivateRoute
+                isProtectedRoute={!currentUser}
+                to={currentUser?.user?.role === "STUDENT" ? "/" : "/dashboard"}
+              />
+            }
+          >
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+          </Route>
           <Route path="/courses" element={<Courses />}>
             <Route path="course-details/:id" element={<CourseDetails />} />
           </Route>
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/contact-us" element={<Contact />} />
+          <Route path="/faqs" element={<FAQs />} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/request-form" element={<RequestForms />}>
-            <Route path="payment-way" element={<PaymentWaysRequestForm />} />
-            <Route path="whats-app" element={<WhatsAppRequestForm />} />
-          </Route>
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route index element={<DashBoardHome />} />
-            <Route path="courses" element={<AdminCourses />} />
-            <Route path="chapters" element={<Chapters />} />
-          </Route>
-          <Route element={<PrivateRoute isProtectedRoute={false} />}>
+          {/* Users Routes */}
+          <Route
+            element={
+              <PrivateRoute
+                isProtectedRoute={
+                  currentUser && currentUser?.user?.role === "STUDENT"
+                }
+                to={"/sign-in"}
+              />
+            }
+          >
+            <Route path="/request-form" element={<RequestForms />}>
+              <Route path="payment-way" element={<PaymentWaysRequestForm />} />
+              <Route path="whats-app" element={<WhatsAppRequestForm />} />
+            </Route>
             <Route path="/profile" element={<Profile />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          {/* Admin Routes */}
+          <Route
+            element={
+              <PrivateRoute
+                isProtectedRoute={
+                  currentUser && currentUser?.user?.role === "ADMIN"
+                }
+                to={"/"}
+              />
+            }
+          >
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route index element={<DashboardHome />} />
+              <Route path="courses" element={<AdminCourses />} />
+              <Route path="chapters" element={<Chapters />} />
+            </Route>
+          </Route>
+          {/* Not Found Route */}
+          <Route path="*" element={<Error code={404} title={"خطأ"} message={"لم يتم العثور على الصفحة"} />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
+        {currentUser && currentUser?.user?.role === "STUDENT"}
         <Toaster position="top-right" />
       </BrowserRouter>
       <ReactQueryDevtools />

@@ -30,6 +30,7 @@ export default function DeleteDialog({
     onError: (error) => {
       //toast.error(error?.response?.data?.errors[0]?.msg);
       toast.error(error?.message);
+      setIsLoading(false);
       setIsDeleteDialogClicked(false);
       setDeletedItemId(null);
     },

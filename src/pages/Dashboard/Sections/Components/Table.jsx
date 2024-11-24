@@ -24,6 +24,7 @@ export default function Table({
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = tableRows.slice(indexOfFirstItem, indexOfLastItem);
+  console.log(tableRows);
   return (
     <>
       <div className="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
@@ -200,7 +201,7 @@ export default function Table({
                         </td>
                       )}
                       <td className="p-2 whitespace-nowrap text-center text-base font-medium text-gray-900">
-                        {row?._count?.chapters || row?._count?.videos }
+                        {row?._count?.videos || row?._count?.chapters || 0}
                       </td>
                       <td className="p-2 text-base font-medium text-gray-900">
                         <p className="line-clamp-2 min-w-28">

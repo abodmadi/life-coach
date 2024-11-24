@@ -339,6 +339,14 @@ export const courseFields = [
 ];
 export const chapterFields = [
   {
+    name: "courseId",
+    label: "الدورات",
+    type: "select",
+    placeholder: "",
+    data: "list",
+  },
+
+  {
     name: "name",
     label: "اسم الفصل",
     type: "text",
@@ -391,4 +399,14 @@ export const sideBarRoutes = [
     routeLink: "assigments",
     routeIcon: assigments,
   },
+];
+
+export const adminAccountList = [
+  { title: "لوحة التحكم", to: "/dashbord" },
+  { title: "الأعدادات", to: "/settings" },
+];
+export const userAccountList = [
+  { title: "الحساب", to: "/account" },
+  { title: "لوحة التحكم", to: "/dashbord" },
+  //{ title: "الأعدادات", to: "/settings" },
 ];

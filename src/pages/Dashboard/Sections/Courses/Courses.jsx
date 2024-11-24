@@ -10,6 +10,7 @@ import NewItemDialog from "../Components/NewItemDialog";
 import toast from "react-hot-toast";
 import EditCourseForm from "@/pages/Forms/EditCourseForm";
 import NewCourseForm from "@/pages/Forms/NewCourseForm";
+import Error from "@/components/Error";
 
 export default function Courses() {
   const {
@@ -25,6 +26,7 @@ export default function Courses() {
 
   if (isError) {
     toast.error(error?.message);
+    return <Error code={error?.response?.status} title={error?.response?.statusText} message={error?.response?.data?.message}/>
   }
 
   return isLoading ? (

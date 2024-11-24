@@ -8,7 +8,7 @@ import {
 } from "formik";
 import ButtonLoader from "./ButtonLoader";
 import { deleteIcon } from "@/constants";
-//import { useState,useEffect } from "react";
+import { useRef } from "react";
 function FormContainer({
   fields,
   initialValues,
@@ -16,64 +16,88 @@ function FormContainer({
   onSubmit,
   isLoading,
   buttonText,
+  options = [{ name: "", lable: "" }],
+  selectionMessage = "يجب أختيار شيئ",
 }) {
-  /*   const [inputs, setInputs] = useState(fields.);
-
-  const handleChange = (index, event) => {
-    const newInputs = inputs.map((input, i) =>
-      i === index ? { value: event.target.value } : input
-    );
-    setInputs(newInputs);
-  };
-
-  const handleAddInput = () => {
-    setInputs([...inputs, { value: "" }]);
-  };
-
-  const handleRemoveInput = (index) => {
-    const newInputs = inputs.filter((_, i) => i !== index);
-    setInputs(newInputs);
-  }; */
+  const imageRef = useRef(null);
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, setFieldValue, values }) => (
+      {({ handleSubmit, setFieldValue, values, errors }) => (
         <Form onSubmit={handleSubmit}>
           {fields.map((field) =>
             field.data != "image" ? (
               field.data != "videos" ? (
-                <div key={field.name} className="mb-4">
-                  <label
-                    htmlFor={field.name}
-                    className="block text-sm font-bold mb-2"
-                  >
-                    {field.label}
-                  </label>
-                  <Field
-                    id={field.name}
-                    name={field.name}
-                    type={field.type}
-                    as={field.component || "input"}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder={field.placeholder}
-                  />
-
-                  <ErrorMessage
-                    name={field.name}
-                    component="div"
-                    className="text-red-500 text-xs italic"
-                  />
-                </div>
+                field.data != "list" ? (
+                  <div key={field.name} className="mb-4">
+                    <label
+                      htmlFor={field.name}
+                      className="block text-sm font-bold mb-2"
+                    >
+                      {field.label}
+                    </label>
+                    <Field
+                      id={field.name}
+                      name={field.name}
+                      type={field.type}
+                      as={field.component || "input"}
+                      className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder={field.placeholder}
+                    />
+                    <ErrorMessage
+                      name={field.name}
+                      component="div"
+                      className="mt-1 text-red-500 text-xs italic"
+                    />
+                  </div>
+                ) : (
+                  <div key={field.name} className="mb-4">
+                    <label
+                      htmlFor={field.name}
+                      className="block text-sm font-bold mb-2"
+                    >
+                      {field.label}
+                    </label>
+                    <Field
+                      as="select"
+                      id={field.name}
+                      name={field.name}
+                      className=" shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                      <option disabled value="" label={selectionMessage} />
+                      {options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.lable}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name={field.name}
+                      component="div"
+                      className="text-red-500 text-xs italic mt-1"
+                    />
+                  </div>
+                )
               ) : (
-                <FieldArray name={field.name}>
-                  {({ push, remove }) => (
-                    <div>
-                      {values?.videos?.map((_, index) => (
-                        <div key={index} className="mb-4">
-                          <div className="flex justify-between items-end w-full gap-x-4">
+                <div className="my-4">
+                  <label className="flex items-center gap-x-2 text-sm font-bold mb-2">
+                    الفيديوهات:
+                    {errors.videos && typeof errors.videos === "string" && (
+                      <ErrorMessage
+                        name={`${field.name}`}
+                        component="div"
+                        className="text-red-500 text-xs italic"
+                      />
+                    )}
+                  </label>
+                  <FieldArray name={field.name}>
+                    {({ push, remove }) => (
+                      <div>
+                        {values?.videos?.map((_, index) => (
+                          <div key={index} className="mb-4">
                             <div className="w-full">
                               <label
                                 htmlFor={`${field.name}.${index}`}
@@ -81,60 +105,63 @@ function FormContainer({
                               >
                                 {field.label} {index + 1}
                               </label>
-                              <Field
-                                name={`${field.name}.${index}`}
-                                type={field.type}
-                                placeholder={field.placeholder}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                              />
-                              <ErrorMessage
-                                name={`${field.name}.${index}`}
-                                component="div"
-                                className="text-red-500 text-xs italic"
-                              />
+                              <div className="flex justify-between items-center w-full gap-x-4">
+                                <Field
+                                  name={`${field.name}.${index}`}
+                                  type={field.type}
+                                  placeholder={field.placeholder}
+                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                                {index > 0 && (
+                                  <button
+                                    type="button"
+                                    className="text-red-500 bg-gray-200/80 rounded-lg text-center"
+                                    onClick={() => remove(index)}
+                                  >
+                                    <img src={deleteIcon} className="size-10" />
+                                  </button>
+                                )}
+                              </div>
+                              {typeof errors.videos !== "string" && (
+                                <ErrorMessage
+                                  name={`${field.name}.${index}`}
+                                  component="div"
+                                  className="text-red-500 text-xs italic"
+                                />
+                              )}
                             </div>
-                            {index > 0 && (
-                              <button
-                                type="button"
-                                className="text-red-500 mt-2"
-                                onClick={() => remove(index)}
-                              >
-                                <img src={deleteIcon} className="size-10" />
-                              </button>
-                            )}
                           </div>
-                        </div>
-                      ))}
-                      <button
-                        type="button"
-                        className="flex items-center gap-4 border-2 border-gray-200 rounded-lg p-2 hover:bg-gray-200"
-                        onClick={() => push("")}
-                      >
-                        <svg
-                          className="-ml-1 mr-2 h-6 w-6"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
+                        ))}
+                        <button
+                          type="button"
+                          className="flex items-center gap-4 border-2 border-gray-200 rounded-lg p-2 hover:bg-gray-200"
+                          onClick={() => push("")}
                         >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <p className=""> إضافة رابط فيديو جديد</p>
-                      </button>
-                    </div>
-                  )}
-                </FieldArray>
+                          <svg
+                            className="-ml-1 mr-2 h-6 w-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <p className="text-sm font-bold"> إضافة رابط جديد</p>
+                        </button>
+                      </div>
+                    )}
+                  </FieldArray>
+                </div>
               )
             ) : (
-              <div key={field.name} className="flex flex-col mb-6 gap-y-2">
-                <label className="block text-sm font-bold mb-2">
-                  {field.label}
-                </label>
-                <div className="max-w-sm h-full py-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg flex justify-center text-center cursor-pointer">
+              <div key={field.name} className="flex flex-col mb-6 gap-y-2 ">
+                <p className="block text-sm font-bold mb-2">{field.label}</p>
+                <div className="w-full h-full py-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg flex justify-center text-center cursor-pointer">
                   <input
+                    ref={imageRef}
                     id={field.name}
                     name={field.name}
                     type={field.type}
@@ -152,15 +179,17 @@ function FormContainer({
                     }}
                   />
                   {values.coverImage ? (
-                    <label htmlFor={field.name}>
-                      <img
-                        className="object-cover w-full max-w-xs cursor-pointer"
-                        src={values.coverImage}
-                        alt="cover image"
-                      />
-                    </label>
+                    <img
+                      onClick={() => imageRef.current.click()}
+                      className="object-cover w-full max-w-lg cursor-pointer"
+                      src={values.coverImage}
+                      alt="cover image"
+                    />
                   ) : (
-                    <label htmlFor={field.name} className="cursor-pointer">
+                    <label
+                      htmlFor={field.name}
+                      className="cursor-pointer w-full h-full"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -187,13 +216,15 @@ function FormContainer({
                         <b className="text-gray-600">JPG, PNG, or GIF</b>{" "}
                         format.
                       </p>
-                      <span
-                        id="filename"
-                        className="text-gray-500 bg-gray-200 z-50"
-                      />
+                      <span className="text-gray-500 bg-gray-200 z-50" />
                     </label>
                   )}
                 </div>
+                <ErrorMessage
+                  name={field.name}
+                  component="div"
+                  className="text-red-500 text-xs italic"
+                />
               </div>
             )
           )}

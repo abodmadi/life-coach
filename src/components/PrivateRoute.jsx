@@ -1,11 +1,5 @@
-import { Navigate,Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import React, { useState } from 'react'
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function PrivateRoute({isProtectedRoute}) {
-    //const {currentUser} = useSelector((state)=>state.user)
-    const [isProtected,setIsProtected]=useState(isProtectedRoute);
-    return (
-        isProtected ? <Outlet/>: <Navigate to='/'/>
-    )
+export default function PrivateRoute({ isProtectedRoute, to }) {
+  return isProtectedRoute ? <Outlet /> : <Navigate to={to} />;
 }

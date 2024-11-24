@@ -8,7 +8,7 @@ import { updateData } from "@/Services/AxiosAPIServices";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
-function EditChapterForm({ successMessage, endPoint }) {
+function EditChapterForm({ successMessage, endPoint, queryKey, options }) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsUpdateDialogClicked, updatedItemId, setUpdatedItemId } =
@@ -19,6 +19,7 @@ function EditChapterForm({ successMessage, endPoint }) {
     description: "",
     videos: [""],
     coverImage: "",
+    courseId: "",
   };
 
   if (updatedItemId) {
@@ -26,6 +27,7 @@ function EditChapterForm({ successMessage, endPoint }) {
     initialValues.description = updatedItemId?.description;
     initialValues.videos = updatedItemId.videos.map((item) => item.videoUrl);
     initialValues.coverImage = updatedItemId?.coverImage;
+    initialValues.courseId = updatedItemId?.course.id;
   }
 
   const updateMutation = useMutation({
@@ -44,7 +46,7 @@ function EditChapterForm({ successMessage, endPoint }) {
     },
     onSuccess: () => {
       toast.success(successMessage);
-      queryClient.invalidateQueries("chapters");
+      queryClient.invalidateQueries(queryKey);
       setUpdatedItemId(null);
       setIsLoading(false);
       setIsUpdateDialogClicked(false);
@@ -68,13 +70,23 @@ function EditChapterForm({ successMessage, endPoint }) {
   };
 
   const handleSubmit = async (values) => {
-    if (JSON.stringify(values) !== JSON.stringify(initialValues)) {
-      if (values.coverImage !== initialValues.coverImage) {
-        const newCoverImage = await uploadToCloudinary(values.coverImage);
-        values.coverImage = newCoverImage;
+    try {
+      if (JSON.stringify(values) !== JSON.stringify(initialValues)) {
+        if (values.coverImage !== initialValues.coverImage) {
+          const newCoverImage = await uploadToCloudinary(values.coverImage);
+          values.coverImage = newCoverImage;
+        }
+        values.videos = values.videos.map((item) => {
+          return { videoUrl: item };
+        });
+        await updateMutation.mutateAsync(values);
+      } else {
+        setUpdatedItemId(null);
+        setIsLoading(false);
+        setIsUpdateDialogClicked(false);
       }
-      updateMutation.mutate(values);
-    } else {
+    } catch (error) {
+      toast.error(`error:${error}`);
       setUpdatedItemId(null);
       setIsLoading(false);
       setIsUpdateDialogClicked(false);
@@ -89,6 +101,8 @@ function EditChapterForm({ successMessage, endPoint }) {
         onSubmit={handleSubmit}
         isLoading={isLoading}
         buttonText={"تعديل"}
+        options={options}
+        selectionMessage={"أختر دورة"}
       />
     )
   );

@@ -1,9 +1,49 @@
+import { adminAccountList } from "@/constants";
 import { AdminDashboardContext } from "@/contexts/AdminDashboardContext";
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { deleteData } from "@/Services/AxiosAPIServices";
+import toast from "react-hot-toast";
+import ButtonLoader from "@/components/ButtonLoader";
+import { authUrl } from "@/utils";
+import {
+  signOutFailure,
+  signOutStart,
+  signOutSuccess,
+} from "@/redux/state_slices/user/user_slice";
 
 export default function Navbar() {
   const [isAdminProfileOpen, setIsAdminProfileOpen] = useState(false);
   const { isSidebarOpen, setIsSidebarOpen } = useContext(AdminDashboardContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user);
+  console.table(currentUser);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { mutate } = useMutation({
+    mutationKey: ["adminSignOut"],
+    mutationFn: async (endPoint) => await deleteData(endPoint),
+    onMutate: () => {
+      dispatch(signOutStart());
+      setIsLoading(true);
+    },
+    onError: (error) => {
+      //toast.error(error?.response?.data?.errors[0]?.msg);
+      toast.error(error?.message);
+      dispatch(signOutFailure(error?.message));
+      setIsLoading(false);
+    },
+    onSuccess: (data) => {
+      toast.success(data?.message);
+      //setIsLoading(false);
+      dispatch(signOutSuccess(data));
+      //setIsAdminProfileOpen(false);
+      //navigate("/sign-in");
+    },
+  });
   return (
     <nav className="fixed bg-white top-0 z-50 w-full  border-b border-gray-200 h-16">
       <div className="container h-full w-10/12 px-3 py-3 lg:px-5 lg:pl-3 ">
@@ -58,9 +98,9 @@ export default function Navbar() {
                 >
                   <span className="sr-only">Open user menu</span>
                   <img
-                    className="w-8 h-8 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                    alt="user photo"
+                    className="size-12 rounded-full object-cover "
+                    src={currentUser?.currentUser?.user?.image}
+                    alt="admin photo"
                   />
                 </button>
               </div>
@@ -72,55 +112,45 @@ export default function Navbar() {
                 id="dropdown-user"
               >
                 <div className="px-4 py-3" role="none">
-                  <p
-                    className="text-sm text-gray-900 dark:text-white"
-                    role="none"
-                  >
-                    Neil Sims
+                  <p className="text-sm text-gray-900 line-clamp-1" role="none">
+                    {currentUser?.currentUser?.user?.firstName}{" "}
+                    {currentUser?.currentUser?.user?.lastName}
                   </p>
                   <p
-                    className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+                    className="text-sm font-medium text-gray-900 truncate "
                     role="none"
                   >
-                    neil.sims@flowbite.com
+                    {currentUser?.currentUser?.user?.email}
                   </p>
                 </div>
                 <ul className="py-1 px-2" role="none">
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                  {adminAccountList.map((item, index) => (
+                    <li key={index} className="cursor-pointer my-px">
+                      <Link
+                        to={item.to}
+                        className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md `}
+                        role="menuitem"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                  <li className="cursor-pointer my-px">
+                    <div
+                      onClick={() => {
+                        mutate(
+                          authUrl +
+                            "/sign-out/" +
+                            currentUser?.currentUser?.user?.id
+                        );
+                        //navigate();
+                      }}
+                      className="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 bg-red-100 hover:bg-red-200 rounded-lg"
                       role="menuitem"
                     >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Sign out
-                    </a>
+                      {isLoading && <ButtonLoader />}
+                      تسجيل الخروج
+                    </div>
                   </li>
                 </ul>
               </div>
