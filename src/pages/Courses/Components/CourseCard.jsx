@@ -9,7 +9,7 @@ export default function CourseCard({ course }) {
       {/* Image */}
       <div className="w-full max-w-sm aspect-square relative">
         <img
-          src="https://pagedone.io/asset/uploads/1701157844.png"
+          src={course.coverImage}
           alt="serum bottle image"
           className="w-full h-full rounded-xl object-cover"
         />
@@ -21,23 +21,22 @@ export default function CourseCard({ course }) {
       <div className="mt-5 flex items-center justify-between">
         <div className="">
           <h6 className="font-medium text-xl leading-8 text-blueVeryDark-900 mb-1">
-            دورة حياة الكنز
+            {course.name}
           </h6>
           <div className="flex items-center gap-x-2 text-sm mb-1">
             <div className="flex items-center gap-x-1 text-blueVeryDark-600 ">
               <Icons icon={faBookOpen} />
             </div>
             <span className="text-blueVeryDark-500">
-              {"4"}
-              {" فصول"}
-              {/* {course.chapters.length !== 1 ? "Chapters" : "Chapter"} */}
+              {course._count.chapters}
+              {course._count.chapters !== 1 ? " فصول " : " فصل "}
             </span>
           </div>
           <h6 className="font-semibold text-xl leading-8 text-teal-600">
-            $199.99
+            ${course.price}
           </h6>
         </div>
-        <button className="p-2 min-[400px]:p-4 rounded-full bg-white border border-blueVeryDark-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-blueVeryDark-200 hover:border-blueVeryDark-700 hover:bg-blueVeryDark-50">
+        {/*   <button className="p-2 min-[400px]:p-4 rounded-full bg-white border border-blueVeryDark-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-blueVeryDark-200 hover:border-blueVeryDark-700 hover:bg-blueVeryDark-50">
           <svg
             className="stroke-blueVeryDark-700 transition-all duration-500 group-hover:stroke-blueVeryDark-950"
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +53,7 @@ export default function CourseCard({ course }) {
               strokeLinecap="round"
             />
           </svg>
-        </button>
+        </button> */}
       </div>
     </Link>
   );
