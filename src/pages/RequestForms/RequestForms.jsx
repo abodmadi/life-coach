@@ -1,71 +1,80 @@
 import Button from "@/components/Button";
 import SectionHeader from "@/components/SectionHeader";
-import { requestPaymentWaysList } from "@/constants";
+import { requestPaymentMethodsList,requestWhatsAppList } from "@/constants";
 import React from "react";
 import { Outlet, useOutlet } from "react-router-dom";
 
 export default function RequestForms() {
-  const isOutlet =useOutlet()
+  const isOutlet = useOutlet();
   return (
     <div className="bg-violetLightGrayish-400">
-      {isOutlet? <Outlet/> : <div className="container w-10/12 ">
-        <SectionHeader text1={"طرق"} text2={"حجز الدورات"} />
-        <div className="flex flex-col items-start ">
-          <div className="px-3 text-xl md:text-3xl text-blueVeryDark-900 my-6">
-            هنالك طريقتين لكي تكون معنا في هذة الرحلة الشيقة
+      {isOutlet ? (
+        <Outlet />
+      ) : (
+        <div className="container w-10/12 ">
+          <SectionHeader text1={"طرق"} text2={"حجز الدورات"} />
+          <div className="flex flex-col items-start ">
+            <div className="px-3 text-xl md:text-3xl text-blueVeryDark-900 my-6">
+              هنالك طريقتين لكي تكون معنا في هذة الرحلة الشيقة
+            </div>
+            <div className="flex flex-col md:flex-row  ">
+              <div className="lg:mx-5 p-1 ">
+                <div className="text-lg md:text-xl text-blueVeryDark-500 ">
+                  الطريقة الأولي: (الدفع الإلكتروني)
+                </div>
+                <ol className="relative border-s border-blueVeryDark-900 mx-8 my-8">
+                  {requestPaymentMethodsList.map((item, index) => (
+                    <li key={index} className="mb-10 ms-6 ">
+                      <span className="absolute text-blueVeryDark-900 flex items-center justify-center w-6 h-6 bg-blueVeryDark-100 rounded-full -start-3 ring-8 ring-blueVeryDark-400/60">
+                        {index + 1}
+                      </span>
+                      <h3 className="flex items-center mb-1 text-lg font-semibold text-blueVeryDark-900 ">
+                        {item.title}
+                      </h3>
+                      <ul className="list-disc lg:mb-4 lg:mx-8 text-base font-normal text-blueVeryDark-500 ">
+                        {item.description.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div className="lg:mx-5 p-1">
+                <div className="text-lg md:text-xl text-blueVeryDark-500 ">
+                  الطريقة الثانية (الواتساب)
+                </div>
+                <ol className="relative border-s border-blueVeryDark-900 mx-8 my-8">
+                  {requestWhatsAppList.map((item, index) => (
+                    <li key={index} className="mb-10 ms-6 ">
+                      <span className="absolute text-blueVeryDark-900 flex items-center justify-center w-6 h-6 bg-blueVeryDark-100 rounded-full -start-3 ring-8 ring-blueVeryDark-400/60">
+                        {index + 1}
+                      </span>
+                      <h3 className="flex items-center mb-1 text-lg font-semibold text-blueVeryDark-900 ">
+                        {item.title}
+                      </h3>
+                      <ul className="list-disc lg:mb-4 lg:mx-8 text-base font-normal text-blueVeryDark-500 ">
+                        {item.description.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row  ">
-            <div className="lg:mx-5 p-1 ">
-              <div className="text-lg md:text-xl text-blueVeryDark-500 ">
-                الطريقة الأولي: (الدفع الإلكتروني)
-              </div>
-              <ol className="relative border-s border-blueVeryDark-900 mx-8 my-8">
-                {requestPaymentWaysList.map((item, index) => (
-                  <li key={index} className="mb-10 ms-6 ">
-                    <span className="absolute text-blueVeryDark-900 flex items-center justify-center w-6 h-6 bg-blueVeryDark-100 rounded-full -start-3 ring-8 ring-blueVeryDark-400/60">
-                      {index + 1}
-                    </span>
-                    <h3 className="flex items-center mb-1 text-lg font-semibold text-blueVeryDark-900 ">
-                      {item.title}
-                    </h3>
-                    <ul className="list-disc lg:mb-4 lg:mx-8 text-base font-normal text-blueVeryDark-500 ">
-                      {item.description.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <div className="lg:mx-5 p-1">
-              <div className="text-lg md:text-xl text-blueVeryDark-500 ">
-                الطريقة الثانية (الواتساب)
-              </div>
-              <ol className="relative border-s border-blueVeryDark-900 mx-8 my-8">
-                {requestPaymentWaysList.map((item, index) => (
-                  <li key={index} className="mb-10 ms-6 ">
-                    <span className="absolute text-blueVeryDark-900 flex items-center justify-center w-6 h-6 bg-blueVeryDark-100 rounded-full -start-3 ring-8 ring-blueVeryDark-400/60">
-                      {index + 1}
-                    </span>
-                    <h3 className="flex items-center mb-1 text-lg font-semibold text-blueVeryDark-900 ">
-                      {item.title}
-                    </h3>
-                    <ul className="list-disc lg:mb-4 lg:mx-8 text-base font-normal text-blueVeryDark-500 ">
-                      {item.description.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ol>
-            </div>
+          <div className="flex justify-center gap-x-8 py-8">
+            <Button text={"الدفع الإلكتروني"} toPage={"payment-way"} />
+            <Button
+              text={"الواتساب"}
+              toPage={
+                "https://api.whatsapp.com/send/?phone=%2B201023050092&text&type=phone_number&app_absent=0"
+              }
+            />
           </div>
         </div>
-        <div className="flex justify-center gap-x-8 py-8">
-          <Button text={"الدفع الإلكتروني"}  toPage={"payment-way"}/>
-          <Button text={"الواتساب"} toPage={"https://api.whatsapp.com/send/?phone=%2B201023050092&text&type=phone_number&app_absent=0"}/>
-        </div>
-      </div>}
+      )}
     </div>
   );
 }

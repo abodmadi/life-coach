@@ -255,7 +255,7 @@ export const SkillsList = [
   },
 ];
 
-export const requestPaymentWaysList = [
+export const requestPaymentMethodsList = [
   {
     title: "تسجيل الدخول",
     description: [
@@ -273,9 +273,31 @@ export const requestPaymentWaysList = [
   {
     title: "إرسال طلب الحجز",
     description: [
-      "قم بالضغط على (عن طريق الدفع الإلكتروني)",
+      "قم بالضغط على (الدفع الإلكتروني)",
       "قم بملئ الحقول المطلوبة",
       "تأكد من ارفاقك لصورة ايصال الدفع بجودة جيدة",
+    ],
+  },
+  {
+    title: "مراجعة الطلب",
+    description: [
+      "سيتم مراجعة الطلب وحين الانتهاء سيتم ابلاغك عن طريق رسالة بريد إلكتروني",
+    ],
+  },
+];
+
+export const requestWhatsAppList = [
+  {
+    title: "تسجيل الدخول",
+    description: [
+      "تأكد من تسجيل الدخول أو إنشاء حساب جديد حتي تستطيع إكمال باقي الخطوات",
+    ],
+  },
+  {
+    title: "إرسال طلب الحجز",
+    description: [
+      "قم بالضغط على (الواتساب)",
+      "ثم ارفق في الرسالة معرف المستخدم (userId)",
     ],
   },
   {
@@ -378,6 +400,36 @@ export const chapterFields = [
     data: "image",
   },
 ];
+
+export const paymentMethodsFields = [
+  {
+    name: "paymentDate",
+    label: "تاريخ الدفع",
+    type: "date",
+    placeholder: "",
+    data: "date",
+  },
+  {
+    name: "paymentMethod",
+    label: "طريقة الدفع",
+    type: "select",
+    placeholder: "",
+    data: "list",
+  },
+  {
+    name: "paymentReceipt",
+    label: "صورة إيصال الدفع",
+    type: "file",
+    placeholder: "",
+    data: "image",
+  },
+];
+
+export const paymentMethodsRole = [
+  { name: "BankTransfer", lable: "تحويل بنكي" },
+  { name: "ElectronicWallet", lable: "محفظة إلكترونية" },
+];
+
 export const sideBarRoutes = [
   {
     routeName: "لوحة التحكم",

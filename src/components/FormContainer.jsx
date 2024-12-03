@@ -178,11 +178,11 @@ function FormContainer({
                       }
                     }}
                   />
-                  {values.coverImage ? (
+                  {values.coverImage || values.paymentReceipt ? (
                     <img
                       onClick={() => imageRef.current.click()}
                       className="object-cover w-full max-w-lg cursor-pointer"
-                      src={values.coverImage}
+                      src={values.coverImage||values.paymentReceipt}
                       alt="cover image"
                     />
                   ) : (

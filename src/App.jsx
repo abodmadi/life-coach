@@ -13,7 +13,7 @@ import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact/Contact";
 import FAQs from "./pages/FAQs/FAQs";
 import AboutUs from "./pages/AboutUs/AboutUs";
-import PaymentWaysRequestForm from "./pages/RequestForms/Components/PaymentWaysRequestForm";
+import PaymentMethodsRequestForm from "./pages/RequestForms/Components/PaymentMethodsRequestForm";
 import RequestForms from "./pages/RequestForms/RequestForms";
 import WhatsAppRequestForm from "./pages/RequestForms/Components/WhatsAppRequestForm";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -83,7 +83,10 @@ function App() {
             }
           >
             <Route path="/request-form" element={<RequestForms />}>
-              <Route path="payment-way" element={<PaymentWaysRequestForm />} />
+              <Route
+                path="payment-way"
+                element={<PaymentMethodsRequestForm />}
+              />
               <Route path="whats-app" element={<WhatsAppRequestForm />} />
             </Route>
             <Route path="/profile" element={<Profile />} />
@@ -106,7 +109,16 @@ function App() {
             </Route>
           </Route>
           {/* Not Found Route */}
-          <Route path="*" element={<Error code={404} title={"خطأ"} message={"لم يتم العثور على الصفحة"} />} />
+          <Route
+            path="*"
+            element={
+              <Error
+                code={404}
+                title={"خطأ"}
+                message={"لم يتم العثور على الصفحة"}
+              />
+            }
+          />
         </Routes>
         <Footer />
         {currentUser && currentUser?.user?.role === "STUDENT"}

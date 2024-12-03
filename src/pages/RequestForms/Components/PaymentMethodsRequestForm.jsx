@@ -1,13 +1,31 @@
-import { requestSchema } from "@/utils/validationSchema";
+import FormContainer from "@/components/FormContainer";
+import { paymentMethodsFields, paymentMethodsRole } from "@/constants";
+import { paymentMethodsValidation } from "@/utils/validationSchema";
 import { useFormik } from "formik";
+import { useState } from "react";
 
-export default function PaymentWaysRequestForm() {
-  function handelRequest(data) {
-    /* const dataMap = new Map(Object.entries(data));
+export default function PaymentMethodsRequestForm() {
+ /*  const weekLast = new Date();
+  weekLast.setDate(weekLast.getDate() - 7);
+  console.log(weekLast); */
+
+  const [isLoading, setIsLoading] = useState(false);
+  function handleSubmit(values) {
+    console.log(values)
+  }
+  let initialValues = {
+    paymentReceipt: "",
+    paymentMethod: "",
+    paymentDate: "",
+    studentId: "",
+    courseId: "",
+  };
+  /*   function handelRequest(data) {
+    const dataMap = new Map(Object.entries(data));
     if (dataMap.get("coverImage") === "") {
       dataMap.delete("coverImage");
     }
-    const finalData = Object.fromEntries(dataMap); */
+    const finalData = Object.fromEntries(dataMap); 
 
     console.log(data);
     formik.resetForm();
@@ -26,19 +44,27 @@ export default function PaymentWaysRequestForm() {
     onSubmit: handelRequest,
     validationSchema: requestSchema,
   });
-  console.log(formik.values.paymentReceipt.split("\\")[2]);
+  console.log(formik.values.paymentReceipt.split("\\")[2]); */
   return (
     <div className="container w-5/6 mx-auto flex justify-center p-8 bg-red-100">
       <div className="w-full max-w-lg">
-        <h1 className="text-4xl text-center text-gray-700 font-bold mb-5">
+        <h1 className="text-xl md:text-2xl lg:text-4xl text-center text-gray-700 font-bold mb-5">
           الدفع الإلكتروني
         </h1>
-        <form
-        
+        <FormContainer
+          fields={paymentMethodsFields}
+          initialValues={initialValues}
+          buttonText={"حجز"}
+          validationSchema={paymentMethodsValidation}
+          options={paymentMethodsRole}
+          onSubmit={handleSubmit}
+          isLoading={isLoading}
+        />
+        {/* <form
           onSubmit={formik.handleSubmit}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
-          {/* Title */}
+          
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -64,7 +90,7 @@ export default function PaymentWaysRequestForm() {
               </p>
             )}
           </div>
-          {/* Payment Method */}
+         
           <div className="mb-4">
             <label
               htmlFor="paymentMethod"
@@ -98,7 +124,7 @@ export default function PaymentWaysRequestForm() {
               </p>
             )}
           </div>
-          {/* Payment Receipt */}
+          
           <div className="mb-4 flex items-center justify-center w-full">
             <label
               htmlFor="paymentReceipt"
@@ -158,14 +184,14 @@ export default function PaymentWaysRequestForm() {
           </div>
         </form>
         <button
-          onClick={()=>{
+          onClick={() => {
             submitForm();
           }}
           className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
           حفظ
-        </button>
+        </button> */}
       </div>
     </div>
   );
