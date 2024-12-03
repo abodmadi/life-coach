@@ -1,23 +1,27 @@
 import FormContainer from "@/components/FormContainer";
 import { paymentMethodsFields, paymentMethodsRole } from "@/constants";
+import { setPaymentQuery } from "@/reactQuery/PaymentQuery";
 import { paymentMethodsValidation } from "@/utils/validationSchema";
 import { useFormik } from "formik";
 import { useState } from "react";
-
+import { useSelector } from "react-redux";
 export default function PaymentMethodsRequestForm() {
- /*  const weekLast = new Date();
+  /*  const weekLast = new Date();
   weekLast.setDate(weekLast.getDate() - 7);
   console.log(weekLast); */
-
+  const { currentUser } = useSelector((state) => state.user);
+  const paymetSet = setPaymentQuery();
   const [isLoading, setIsLoading] = useState(false);
-  function handleSubmit(values) {
-    console.log(values)
+  function handleSubmit(values, { resetForm }) {
+    paymetSet.mutate(values);
+    console.log(values);
+    resetForm();
   }
   let initialValues = {
     paymentReceipt: "",
     paymentMethod: "",
     paymentDate: "",
-    studentId: "",
+    studentId: currentUser.user.id,
     courseId: "",
   };
   /*   function handelRequest(data) {

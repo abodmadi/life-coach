@@ -16,7 +16,7 @@ function FormContainer({
   onSubmit,
   isLoading,
   buttonText,
-  options = [{ name: "", lable: "" }],
+  options = [{ value: "", lable: "" }],
   selectionMessage = "يجب أختيار شيئ",
 }) {
   const imageRef = useRef(null);
@@ -26,7 +26,7 @@ function FormContainer({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, setFieldValue, values, errors }) => (
+      {({ handleSubmit, setFieldValue, values, errors, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           {fields.map((field) =>
             field.data != "image" ? (
@@ -40,6 +40,7 @@ function FormContainer({
                       {field.label}
                     </label>
                     <Field
+                      disabled={isSubmitting}
                       id={field.name}
                       name={field.name}
                       type={field.type}
@@ -62,6 +63,7 @@ function FormContainer({
                       {field.label}
                     </label>
                     <Field
+                    disabled={isSubmitting}
                       as="select"
                       id={field.name}
                       name={field.name}
@@ -106,7 +108,8 @@ function FormContainer({
                                 {field.label} {index + 1}
                               </label>
                               <div className="flex justify-between items-center w-full gap-x-4">
-                                <Field
+                                <Field 
+                                disabled={isSubmitting}
                                   name={`${field.name}.${index}`}
                                   type={field.type}
                                   placeholder={field.placeholder}
@@ -161,6 +164,7 @@ function FormContainer({
                 <p className="block text-sm font-bold mb-2">{field.label}</p>
                 <div className="w-full h-full py-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg flex justify-center text-center cursor-pointer">
                   <input
+                  disabled={isSubmitting}
                     ref={imageRef}
                     id={field.name}
                     name={field.name}
@@ -182,7 +186,7 @@ function FormContainer({
                     <img
                       onClick={() => imageRef.current.click()}
                       className="object-cover w-full max-w-lg cursor-pointer"
-                      src={values.coverImage||values.paymentReceipt}
+                      src={values.coverImage || values.paymentReceipt}
                       alt="cover image"
                     />
                   ) : (

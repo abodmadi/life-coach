@@ -426,8 +426,8 @@ export const paymentMethodsFields = [
 ];
 
 export const paymentMethodsRole = [
-  { name: "BankTransfer", lable: "تحويل بنكي" },
-  { name: "ElectronicWallet", lable: "محفظة إلكترونية" },
+  { value: "BankTransfer", lable: "تحويل بنكي" },
+  { value: "ElectronicWallet", lable: "محفظة إلكترونية" },
 ];
 
 export const sideBarRoutes = [
