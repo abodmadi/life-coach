@@ -40,7 +40,7 @@ function FormContainer({
                       {field.label}
                     </label>
                     <Field
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || field.disabled}
                       id={field.name}
                       name={field.name}
                       type={field.type}
@@ -63,7 +63,7 @@ function FormContainer({
                       {field.label}
                     </label>
                     <Field
-                    disabled={isSubmitting}
+                    disabled={isSubmitting|| field.disabled}
                       as="select"
                       id={field.name}
                       name={field.name}
@@ -109,7 +109,7 @@ function FormContainer({
                               </label>
                               <div className="flex justify-between items-center w-full gap-x-4">
                                 <Field 
-                                disabled={isSubmitting}
+                                disabled={isSubmitting|| field.disabled}
                                   name={`${field.name}.${index}`}
                                   type={field.type}
                                   placeholder={field.placeholder}
@@ -164,7 +164,7 @@ function FormContainer({
                 <p className="block text-sm font-bold mb-2">{field.label}</p>
                 <div className="w-full h-full py-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg flex justify-center text-center cursor-pointer">
                   <input
-                  disabled={isSubmitting}
+                  disabled={isSubmitting|| field.disabled}
                     ref={imageRef}
                     id={field.name}
                     name={field.name}

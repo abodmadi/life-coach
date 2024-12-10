@@ -2,7 +2,6 @@ import FormContainer from "@/components/FormContainer";
 import { paymentMethodsFields, paymentMethodsRole } from "@/constants";
 import { setPaymentQuery } from "@/reactQuery/PaymentQuery";
 import { paymentMethodsValidation } from "@/utils/validationSchema";
-import { useFormik } from "formik";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 export default function PaymentMethodsRequestForm() {
@@ -13,9 +12,9 @@ export default function PaymentMethodsRequestForm() {
   const paymetSet = setPaymentQuery();
   const [isLoading, setIsLoading] = useState(false);
   function handleSubmit(values, { resetForm }) {
-    paymetSet.mutate(values);
+    //paymetSet.mutate(values);
     console.log(values);
-    resetForm();
+    //resetForm();
   }
   let initialValues = {
     paymentReceipt: "",
@@ -50,8 +49,8 @@ export default function PaymentMethodsRequestForm() {
   });
   console.log(formik.values.paymentReceipt.split("\\")[2]); */
   return (
-    <div className="container w-5/6 mx-auto flex justify-center p-8 bg-red-100">
-      <div className="w-full max-w-lg">
+    <div className="container w-5/6 mx-auto flex justify-center p-8 ">
+      <div className="w-full max-w-lg rounded-xl shadow-xl px-8 py-4">
         <h1 className="text-xl md:text-2xl lg:text-4xl text-center text-gray-700 font-bold mb-5">
           الدفع الإلكتروني
         </h1>

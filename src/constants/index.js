@@ -403,6 +403,22 @@ export const chapterFields = [
 
 export const paymentMethodsFields = [
   {
+    name: "studentId",
+    label: "معرف المستخدم",
+    type: "text",
+    placeholder: "",
+    disabled:true,
+    data: "text",
+  },
+  {
+    name: "courseId",
+    label: "معرف الدورة",
+    type: "text",
+    disabled:true,
+    placeholder: "",
+    data: "text",
+  },
+  {
     name: "paymentDate",
     label: "تاريخ الدفع",
     type: "date",

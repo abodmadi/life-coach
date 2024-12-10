@@ -1,3 +1,4 @@
+import { paymentMethodsRole } from "@/constants";
 import * as yup from "yup";
 
 const smallTextValidator = yup
@@ -123,7 +124,7 @@ const videoUrlArrayValidator = yup
   .min(1, "يجب إدخال رابط فيديو واحد على الأقل")
   .max(3, "يمكن إدخال حتى 3 روابط فيديو فقط"); // Optional limit
 
-const optionsValidator = "";
+//const optionsValidator = "";
 const weekLast = new Date();
 weekLast.setDate(weekLast.getDate() - 7);
 const dateValidator = yup
@@ -131,16 +132,34 @@ const dateValidator = yup
   .min(weekLast, "يجب أن لا يقل عن اسبوع من التاريخ الحالي")
   .max(new Date(), "يجب أن يسبق أو يساوي التاريخ الحالي")
   .required("مطلوب");
-const uuidValidator = yup.string().notOneOf([""]).required("مطلوب");
+
+const uuidValidator = (errorMes) =>
+  yup.string().uuid(errorMes).required("مطلوب");
+
+const selectValidator = (
+  options,
+  required = true,
+  errorMes = "يجب إختيار شيئ",
+  requiredMes = "مطلوب"
+) => {
+  let schema = yup.mixed();
+  if (required) {
+    schema = schema.required(requiredMes);
+  }
+
+  schema = schema.oneOf(options, errorMes);
+
+  return schema;
+};
 
 /* ****************************************************************************************************************************************** */
 // Schema Objects ---------------------------------------------------------------------------------------------------//
 export const paymentMethodsValidation = yup.object().shape({
   paymentReceipt: fileValidator,
-  //paymentMethod: uuidValidator,
+  paymentMethod: selectValidator(paymentMethodsRole.map((item) => item.value)),
   paymentDate: dateValidator,
-  /* studentId: uuidValidator,
-  courseId: uuidValidator, */
+  studentId: uuidValidator("يرجي التحقق من معرف المستخدم"),
+  courseId: uuidValidator("يرجي التحقق من معرف الدورة"),
 });
 export const courseValidation = yup.object().shape({
   name: smallTextValidator,
