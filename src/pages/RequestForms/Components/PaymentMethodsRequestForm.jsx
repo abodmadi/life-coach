@@ -4,24 +4,58 @@ import { setPaymentQuery } from "@/reactQuery/PaymentQuery";
 import { paymentMethodsValidation } from "@/utils/validationSchema";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { cloudinaryUrl, cloudName, uploadPreset } from "@/utils";
 export default function PaymentMethodsRequestForm() {
   /*  const weekLast = new Date();
   weekLast.setDate(weekLast.getDate() - 7);
   console.log(weekLast); */
+
+  const { courseId } = useSelector((state) => state.course);
+  console.log(courseId);
   const { currentUser } = useSelector((state) => state.user);
-  const paymetSet = setPaymentQuery();
+  const handleSuccess = (data) => {
+    console.log("Payment succeeded:", data);
+    // Add additional logic for success handling
+  };
+  const handleError = (error) => {
+    console.error("Payment failed:", error);
+    // Add additional logic for error handling
+  };
+  const paymetSet = setPaymentQuery({
+    onSuccess: handleSuccess,
+    onError: handleError,
+  });
   const [isLoading, setIsLoading] = useState(false);
-  function handleSubmit(values, { resetForm }) {
-    //paymetSet.mutate(values);
-    console.log(values);
-    //resetForm();
+  const uploadToCloudinary = async (file) => {
+    setIsLoading(true);
+    const fromData = new FormData();
+    fromData.append("file", file);
+    fromData.append("upload_preset", uploadPreset);
+    fromData.append("cloud_name", cloudName);
+    const imageUrl = await axios
+      .post(cloudinaryUrl, fromData)
+      .then((response) => {
+        setIsLoading(false);
+        return response.data;
+      });
+
+    return imageUrl.secure_url;
+  };
+ 
+  async function handleSubmit(values, { resetForm }) {
+    const newPaymentReceipt = await uploadToCloudinary(values.paymentReceipt);
+    values.paymentReceipt = newPaymentReceipt;
+    paymetSet.mutate(values);
+    
+    resetForm();
   }
   let initialValues = {
     paymentReceipt: "",
     paymentMethod: "",
     paymentDate: "",
     studentId: currentUser.user.id,
-    courseId: "",
+    courseId: courseId,
   };
   /*   function handelRequest(data) {
     const dataMap = new Map(Object.entries(data));
