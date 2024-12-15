@@ -6,7 +6,7 @@ import Error from "@/components/Error";
 import Loader from "@/components/Loader";
 
 export default function CoursesGrid() {
-  const { isError, error, isLoading, data } = getCoursesQuery();
+  const { isError, error, isLoading, data } = getCoursesQuery("/all");
 
   if (isError) {
     toast.error(error.message);

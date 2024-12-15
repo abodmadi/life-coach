@@ -9,7 +9,9 @@ import courses from "@/assets/svgs/courses.svg";
 import chapters from "@/assets/svgs/chapters.svg";
 import assigments from "@/assets/svgs/assigments.svg";
 import deleteIo from "@/assets/svgs/delete.svg";
-
+import studentDashMain from "@/assets/svgs/studentDashMain.svg";
+import studentMesseges from "@/assets/svgs/studentMesseges.svg";
+import studentToDo from "@/assets/svgs/studentToDo.svg";
 export const deleteIcon = deleteIo;
 export const sideBarItems = [
   {
@@ -407,14 +409,14 @@ export const paymentMethodsFields = [
     label: "معرف المستخدم",
     type: "text",
     placeholder: "",
-    disabled:true,
+    disabled: true,
     data: "text",
   },
   {
     name: "courseId",
     label: "معرف الدورة",
     type: "text",
-    disabled:true,
+    disabled: true,
     placeholder: "",
     data: "text",
   },
@@ -475,6 +477,23 @@ export const adminAccountList = [
 ];
 export const userAccountList = [
   { title: "الحساب", to: "/account" },
-  { title: "لوحة التحكم", to: "/dashbord" },
+  { title: "لوحة التحكم", to: "/student-dashboard" },
   //{ title: "الأعدادات", to: "/settings" },
+];
+export const studentDashBordSideBar = [
+  {
+    title: "لوحة التحكم",
+    to: "/",
+    svg: studentDashMain,
+  },  
+  {
+    title: "الرسائل",
+    to: "/studen-messegs",
+    svg: studentMesseges,
+  },
+  {
+    title: "الاهداف",
+    to: "/studen-todo",
+    svg: studentToDo,
+  },
 ];

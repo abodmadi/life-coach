@@ -25,6 +25,8 @@ import DashboardHome from "./pages/Dashboard/Sections/DashboardHome/DashBoardHom
 import Chapters from "./pages/Dashboard/Sections/Chapters/Chapters";
 import { useSelector } from "react-redux";
 import Error from "./components/Error";
+import StudentDashBoard from "./pages/StudentDashBaord/StudentDashBoard";
+
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const queryClient = new QueryClient();
@@ -90,6 +92,7 @@ function App() {
               <Route path="whats-app" element={<WhatsAppRequestForm />} />
             </Route>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/student-dashboard" element={<StudentDashBoard />} />
           </Route>
           {/* Admin Routes */}
           <Route
