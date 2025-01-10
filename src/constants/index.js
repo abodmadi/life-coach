@@ -12,6 +12,7 @@ import deleteIo from "@/assets/svgs/delete.svg";
 import studentDashMain from "@/assets/svgs/studentDashMain.svg";
 import studentMesseges from "@/assets/svgs/studentMesseges.svg";
 import studentToDo from "@/assets/svgs/studentToDo.svg";
+import requestsPending from "@/assets/svgs/pending.svg";
 export const deleteIcon = deleteIo;
 export const sideBarItems = [
   {
@@ -328,6 +329,14 @@ export const tableChapterColumnsNames = [
   "عدد المقاطع",
   "المحرر",
 ];
+export const studentTableRequestColumns = [
+  "الرقم",
+  "أسم الدورة",
+  "إيصال الدفع",
+  "طريقة الدفع",
+  "تاريخ الدفع",
+  "حالة الطلب",
+];
 export const courseFields = [
   {
     name: "name",
@@ -480,20 +489,59 @@ export const userAccountList = [
   { title: "لوحة التحكم", to: "/student-dashboard" },
   //{ title: "الأعدادات", to: "/settings" },
 ];
-export const studentDashBordSideBar = [
+export const studentDashboardSideBar = [
   {
     title: "لوحة التحكم",
-    to: "/",
+    to: "/student-dashboard",
     svg: studentDashMain,
-  },  
+  },
+  {
+    title: "الطلبات المعلقة",
+    to: "pending-requests",
+    svg: requestsPending,
+  },
   {
     title: "الرسائل",
-    to: "/studen-messegs",
+    to: "messages",
     svg: studentMesseges,
   },
   {
     title: "الاهداف",
-    to: "/studen-todo",
+    to: "todo",
     svg: studentToDo,
+  },
+];
+
+
+export const  paymentStatus = [
+  {
+    label: "Requested",
+    value: "تم الطلب",
+    color: "bg-amber-200/80 text-amber-700/90",
+  },
+  {
+    label: "Pending",
+    value: "قيد العمل",
+    color: "bg-cyan-200/80 text-cyan-700/90",
+  },
+  {
+    label: "Accepted",
+    value: "مقبول",
+    color: "bg-emerald-200/80 text-green-700/90",
+  },
+  {
+    label: "Rejected",
+    value: "مرفوض",
+    color: "bg-red-200/80 text-red-700/90",
+  },
+];
+export const  paymentMethods = [
+  {
+    label: "ElectronicWallet",
+    value: "محفظة إلكترونية",
+  },
+  {
+    label: "BankTransfer",
+    value: "تحويل بنكي",
   },
 ];

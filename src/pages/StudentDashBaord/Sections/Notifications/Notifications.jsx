@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DashBaordNoticationSection() {
+export default function Notifications() {
   return (
     <>
       {" "}

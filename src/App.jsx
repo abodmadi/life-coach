@@ -9,7 +9,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import Courses from "./pages/Courses/Courses";
 import AdminCourses from "./pages/Dashboard/Sections/Courses/Courses";
 import CourseDetails from "./pages/CourseDetails/CourseDetails";
-import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact/Contact";
 import FAQs from "./pages/FAQs/FAQs";
 import AboutUs from "./pages/AboutUs/AboutUs";
@@ -22,11 +21,13 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import DashboardHome from "./pages/Dashboard/Sections/DashboardHome/DashBoardHome";
+import StudentDashboardHome from "./pages/StudentDashBaord/Sections/DashboardHome/DashboardHome"
 import Chapters from "./pages/Dashboard/Sections/Chapters/Chapters";
 import { useSelector } from "react-redux";
 import Error from "./components/Error";
-import StudentDashBoard from "./pages/StudentDashBaord/StudentDashBoard";
-
+import StudentDashboard from "./pages/StudentDashBaord/StudentDashboard";
+import Notifications from "./pages/StudentDashBaord/Sections/Notifications/Notifications";
+import PendingRequests from "./pages/StudentDashBaord/Sections/PendingRequests/PendingRequests";
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const queryClient = new QueryClient();
@@ -48,7 +49,7 @@ function App() {
               icon: "🌐",
               position: "top-center",
             })}
-        {currentUser && currentUser.user.role === "STUDENT"}
+        {currentUser && currentUser?.user?.role === "STUDENT"}
         <Header />
         {/*<div className="m-5">
       <Breadcrumb/>
@@ -92,7 +93,14 @@ function App() {
               <Route path="whats-app" element={<WhatsAppRequestForm />} />
             </Route>
             <Route path="/profile" element={<Profile />} />
-            <Route path="/student-dashboard" element={<StudentDashBoard />} />
+            <Route path="/student-dashboard" element={<StudentDashboard />}>
+              <Route index element={<StudentDashboardHome />} />
+              <Route path="pending-requests" element={<PendingRequests />} />
+              <Route
+                path="messages"
+                element={<Notifications />}
+              />
+            </Route>
           </Route>
           {/* Admin Routes */}
           <Route

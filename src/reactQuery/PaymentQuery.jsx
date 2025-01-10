@@ -16,3 +16,11 @@ export const setPaymentQuery = ({ onSuccess, onError,onMutate } = {}) => {
     refetchOnWindowFocus: false, // Prevent refetching on window focus
   });
 };
+
+export const getPaymentQuery = (endpoint) => {
+  return useQuery({
+    queryKey: ["payments", endpoint],
+    queryFn: async () => await getData(paymentUrl + endpoint),
+    refetchOnWindowFocus: false, // Prevent refetching on window focus
+  });
+}

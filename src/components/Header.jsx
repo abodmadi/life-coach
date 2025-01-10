@@ -184,7 +184,7 @@ export default function Header() {
             {currentUser ? (
               <div className="hidden md:relative md:block">
                 <img
-                  src={currentUser.user.image}
+                  src={currentUser?.user?.image}
                   alt="User image"
                   className="cursor-pointer rounded-full size-10 object-cover"
                   onClick={(img) =>

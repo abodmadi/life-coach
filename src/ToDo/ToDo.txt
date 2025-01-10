@@ -3,6 +3,7 @@ Clodinary:
 
 Ui:
     1.responsive of all pages []
+    2.In the courses of students add loading for it and for course details []
 
 
 Table:
