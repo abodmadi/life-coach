@@ -30,7 +30,11 @@ export default function CoursesGrid() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data?.courses?.map((course, index) => (
-            <CourseCard key={index} course={course} />
+            <CourseCard
+              key={index}
+              endPoint={"course-details/"}
+              course={course}
+            />
           ))}
         </div>
       </div>

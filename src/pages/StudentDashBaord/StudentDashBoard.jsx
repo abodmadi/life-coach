@@ -5,7 +5,7 @@ import { StudentDashboardProvider } from "@/contexts/StudentDashboardContext";
 
 export default function StudentDashboard() {
   return (
-    <div className="font-elMessiri flex justify-between gap-4 bg-slate-300">
+    <div className="font-elMessiri flex justify-between gap-4 bg-blueLightGrayish-700">
       <StudentDashboardProvider>
         <DashboardSideBar />
         <DashboardBody />

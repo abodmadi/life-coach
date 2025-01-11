@@ -21,13 +21,16 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import DashboardHome from "./pages/Dashboard/Sections/DashboardHome/DashBoardHome";
-import StudentDashboardHome from "./pages/StudentDashBaord/Sections/DashboardHome/DashboardHome"
+import StudentDashboardHome from "./pages/StudentDashBaord/Sections/DashboardHome/DashboardHome";
 import Chapters from "./pages/Dashboard/Sections/Chapters/Chapters";
 import { useSelector } from "react-redux";
 import Error from "./components/Error";
 import StudentDashboard from "./pages/StudentDashBaord/StudentDashboard";
 import Notifications from "./pages/StudentDashBaord/Sections/Notifications/Notifications";
 import PendingRequests from "./pages/StudentDashBaord/Sections/PendingRequests/PendingRequests";
+
+import RegisteredCourses from "./pages/StudentDashBaord/Sections/RegisteredCourses/RegisteredCourses";
+import CourseContents from "./pages/StudentDashBaord/Sections/RegisteredCourses/Components/CourseContents";
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const queryClient = new QueryClient();
@@ -96,10 +99,10 @@ function App() {
             <Route path="/student-dashboard" element={<StudentDashboard />}>
               <Route index element={<StudentDashboardHome />} />
               <Route path="pending-requests" element={<PendingRequests />} />
-              <Route
-                path="messages"
-                element={<Notifications />}
-              />
+              <Route path="courses" element={<RegisteredCourses />}>
+                <Route path="course-content/:id" element={<CourseContents />} />
+              </Route>
+              <Route path="messages" element={<Notifications />} />
             </Route>
           </Route>
           {/* Admin Routes */}

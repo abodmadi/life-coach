@@ -13,6 +13,7 @@ import studentDashMain from "@/assets/svgs/studentDashMain.svg";
 import studentMesseges from "@/assets/svgs/studentMesseges.svg";
 import studentToDo from "@/assets/svgs/studentToDo.svg";
 import requestsPending from "@/assets/svgs/pending.svg";
+import studentCourses from "@/assets/svgs/studentCourses.svg";
 export const deleteIcon = deleteIo;
 export const sideBarItems = [
   {
@@ -496,7 +497,13 @@ export const studentDashboardSideBar = [
     svg: studentDashMain,
   },
   {
-    title: "الطلبات المعلقة",
+    title: "الدورات",
+    to: "courses",
+    svg: studentCourses,
+  },
+
+  {
+    title: "الطلبات",
     to: "pending-requests",
     svg: requestsPending,
   },
@@ -512,8 +519,7 @@ export const studentDashboardSideBar = [
   },
 ];
 
-
-export const  paymentStatus = [
+export const paymentStatus = [
   {
     label: "Requested",
     value: "تم الطلب",
@@ -535,7 +541,7 @@ export const  paymentStatus = [
     color: "bg-red-200/80 text-red-700/90",
   },
 ];
-export const  paymentMethods = [
+export const paymentMethods = [
   {
     label: "ElectronicWallet",
     value: "محفظة إلكترونية",
