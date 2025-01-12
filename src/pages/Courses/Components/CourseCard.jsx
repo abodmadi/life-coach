@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import Icons from "../../../components/Icons";
 
-export default function CourseCard({ course,endPoint }) {
+export default function CourseCard({ course, endPoint }) {
   return (
-    <Link to={endPoint+course.id} className="max-w-[384px] mx-auto">
+    <Link to={endPoint + course.id} className="max-w-[384px] mx-auto">
       {/* Image */}
       <div className="w-full max-w-sm aspect-square relative">
         <img
@@ -13,7 +13,7 @@ export default function CourseCard({ course,endPoint }) {
           alt="serum bottle image"
           className="w-full h-full rounded-xl object-cover"
         />
-       {/*  <span className="py-1 min-[400px]:py-2 px-2 min-[400px]:px-4 cursor-pointer rounded-lg bg-gradient-to-tr from-blueVeryDark-500 to-teal-300 font-medium text-sm leading-7 text-white absolute top-1.5 right-1.5 z-10">
+        {/*  <span className="py-1 min-[400px]:py-2 px-2 min-[400px]:px-4 cursor-pointer rounded-lg bg-gradient-to-tr from-blueVeryDark-500 to-teal-300 font-medium text-sm leading-7 text-white absolute top-1.5 right-1.5 z-10">
           20% تخفيض
         </span> */}
       </div>

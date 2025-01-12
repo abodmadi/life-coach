@@ -29,10 +29,10 @@ export default function RegisteredCourses() {
       ) : isOutlet ? (
         <Outlet />
       ) : (
-        <div className="w-full  bg-blueLightGrayish-700 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="w-full  bg-blueLightGrayish-700 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {getUserCourses?.data?.enrollments?.map((item, index) => (
             <div
-              className="px-2 pt-2 mt-2 border border-none rounded-2xl bg-blueLightGrayish-100"
+              className="px-2 pt-2 mt-2 border  border-none rounded-2xl bg-blueLightGrayish-100"
               key={index}
             >
               <CourseCard course={item?.course} endPoint={"course-content/"} />
