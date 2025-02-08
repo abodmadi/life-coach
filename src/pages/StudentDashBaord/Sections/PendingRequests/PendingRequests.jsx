@@ -50,8 +50,3 @@ export default function PendingRequests() {
     </DashboardTable>
   );
 }
-/*
-<DashboardTable>
-  <pendingRows />
-</DashboardTable>
-*/
