@@ -15,8 +15,12 @@ import studentToDo from "@/assets/svgs/studentToDo.svg";
 import requestsPending from "@/assets/svgs/pending.svg";
 import studentCourses from "@/assets/svgs/studentCourses.svg";
 import play from "@/assets/svgs/play.svg";
+import close from "@/assets/svgs/menuclose.svg";
+import menu from "@/assets/svgs/menuopen.svg";
 export const deleteIcon = deleteIo;
 export const playChapterSvg = play;
+export const closeMenu=close;
+export const openMenu=menu;
 export const sideBarItems = [
   {
     title: "Dashboard",
