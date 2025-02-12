@@ -23,7 +23,7 @@ export default function CourseContents() {
   return getCourseChapters.isLoading ? (
     <Loader />
   ) : (
-    <div className="flex gap-1 h-screen bg-violetLightGrayish-400">
+    <div className="container flex gap-1 h-screen bg-violetLightGrayish-400">
       {/* Sidebar */}
       <div>
         <nav className=" max-w-52 min-w-52 h-full max-h-full flex flex-col items-center border rounded-l-xl m-2 border-blueVeryDark-400 border-dashed shadow-xl  py-4 ">
@@ -50,10 +50,13 @@ export default function CourseContents() {
         </nav>
       </div>
       {/* Body */}
-      <div className="container h-full w-full border rounded-xl my-2 p-4 ml-2  border-blueVeryDark-400 border-dashed">
-        <div className="h-full w-full flex flex-col gap-y-2 ">
-          <div className=" text-3xl text-blueVeryDark-950 px-2">
-            {getCourseChapters?.data?.courseChapters[currentChapter]?.name}
+      <div className="container h-full border rounded-xl my-2 p-4 ml-2  border-blueVeryDark-400 border-dashed">
+        <div className="container h-full flex flex-col gap-y-2 ">
+          <div className="flex items-center gap-x-4">
+            <div className=""></div>
+            <div className=" text-3xl text-blueVeryDark-950 px-2">
+              {getCourseChapters?.data?.courseChapters[currentChapter]?.name}
+            </div>
           </div>
           <div className=" px-2 text-blueVeryDark-600">
             {
@@ -61,10 +64,9 @@ export default function CourseContents() {
                 ?.description
             }
           </div>
-          <div className="flex items-center justify-center w-full h-full bg-red-300">
+          <div className="flex items-center justify-center container h-full bg-red-300">
             <div className="bg-green-200 size-5/6">
-              <CourseVideosSwiper CourseVideos={getCourseChapters?.data?.courseChapters[currentChapter]
-                ?.videos}/>
+              <CourseVideosSwiper />
             </div>
           </div>
         </div>
